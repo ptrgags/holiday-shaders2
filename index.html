@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Three.js Shaders</title>
+        <link rel="stylesheet" href="styles/main.css" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="scripts/three.min.js"></script>
+        <script src="scripts/main.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <h2 class="text-center">Eyecandy - <span id="title"></span> (<span id="current"></span>/<span id="all"></span>)</h2>
+            <div class="row">
+                <div class="col-sm-2">
+                    <button id="prev" class="btn btn-primary">&lt; Previous</button>
+                </div>
+                <div class="col-sm-8">
+                    <p id="desc"></p>
+                </div>
+                <div class="col-sm-2">
+                    <button id="next" class="btn btn-primary">Next &gt;</button>
+                </div>
+            </div>
+            <div>
+            <div id="wrapper">
+                <canvas id="three"></canvas>
+            </div>
+        </div>
+    </body>
+</html>

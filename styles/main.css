@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    color: #FFFFFF !important;
+    background: #000000 !important;
+}
+
+div#wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+canvas#three {
+    width: 100%;
+    height: 100%;
+}
