@@ -98,6 +98,18 @@ var setup_shaders = () => {
     render();
 };
 
+let normalize_hash = (hash) => {
+    let SHA_LENGTH_BYTES = 32;
+    let buffer = [];
+    for (let i = 0; i < SHA_LENGTH_BYTES; i++) {
+        let byte_hex = hash.slice(2 * i, 2 * i + 2);
+        let byte_int = parseInt(byte_hex, 16);
+        let norm = byte_int / 255;
+        buffer.push(norm);
+    }
+    return buffer;
+}
+
 var attach_callbacks = () => {
     $('#three').mousemove((event) => {
         event.preventDefault();
@@ -142,6 +154,14 @@ var attach_callbacks = () => {
         $("#title").html(shader_titles[current_frag]);
         $("#current").html(current_frag + 1);
     });
+
+    $('#to-hash').change(() => {
+        let text = $("#to-hash").val();
+        let hash = sha256(text);
+        $("#hash").html(hash);
+        let noise_buffer = normalize_hash(hash);
+        console.log(noise_buffer);
+    })
 };
 
 $(document).ready(() => {
