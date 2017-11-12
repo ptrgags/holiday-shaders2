@@ -10,48 +10,15 @@ var vert_shader_list = [
 ];
 
 var frag_shader_list = [
-    "quasicrystal.frag",
-    "orange.frag",
-    "rainbow_pulse.frag",
-    "mandelbrot.frag",
-    "purple_twist.frag",
-    "ghost_cells.frag",
-    "interference.frag",
-    "voronoi_pulse.frag",
-    "simplex_magnify.frag",
-    "barrel_pincushion.frag",
-    "wavy_eye.frag",
-    "triangle_flash.frag"
+    "test.frag"
 ];
 
 var shader_titles = [
-    "Quasicrystal",
-    "Bell Gradient",
-    "Rainbow Pulse",
-    "Mandelbrot Set",
-    "Purple Twist",
-    "Ghost Cells",
-    "Interference",
-    "Voronoi Pulse",
-    "Triangles",
-    "Barrel and Pincushion Distortion",
-    "Wavy Eye",
-    "Triangle Flash"
+    "Input Test"
 ];
 
 var shader_descriptions = [
-    "\"Quasicrystal\", a variation of the shader from taken from <a href=\"http://pixelshaders.com/examples/quasicrystal.html\">this tutorial</a>. <br />Mouse x: color. Mouse y: wave frequency",
-    "Bell-curve gradient with pulsing width",
-    "Okay, not technically a rainbow but it sounded cool at the time...",
-    "the Mandelbrot set fractal. <br /> Mouse x: zoom in/out. Scrollwheel: select point of interest",
-    "You are getting very sleepy...",
-    "Worley Noise with distortion. Unlike on ShaderToy, I used a better noise function",
-    "Simulation of the interference patterns of two waves. <br/> Mouse: Move the waves. Scrollwheel: toggle third point",
-    "Voronoi diagram with pulsing animation. <br/> Mouse: Move one of the points",
-    "Grid of triangles. <br />Mouse: Move the magnifying glass",
-    "This is the same effect used to make a magnifying glass! <br/> Mouse: pan around",
-    "It's watching you...",
-    "Triangles."
+    "This is a test."
 ];
 
 var current_vert = 0;
@@ -96,8 +63,8 @@ var setup_shaders = () => {
 
     // lights, Camera, action! except there's no
     // lights or action yet...
-    var width = $('#wrapper').width();
-    var height = $('#wrapper').height();
+    var width = 250; //$('#wrapper').width();
+    var height = 350; //$('#wrapper').height();
     camera = new THREE.OrthographicCamera(
         -width / 2, width / 2, height/2, -height/2, 1, 1000);
     camera.position.z = 5;
@@ -139,7 +106,7 @@ var attach_callbacks = () => {
         uniforms.mouse.value.y = event.clientY - offset.top;
     });
 
-    $(window).resize(() => {
+    /*$(window).resize(() => {
         var width = $('#wrapper').width();
         var height = $('#wrapper').height();
         console.log(width, height);
@@ -148,7 +115,7 @@ var attach_callbacks = () => {
         camera.aspect = width/height;
         camera.updateProjectionMatrix();
         renderer.setSize(width, height);
-    });
+    });*/
 
     $(window).on('wheel', (event) => {
         if (event.deltaY < 0)
