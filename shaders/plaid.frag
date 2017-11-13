@@ -8,12 +8,44 @@ uniform vec2 mouse;
 uniform int scroll;
 uniform float noise_buffer[32];
 
+#define PI 3.1415
+#define CENTER (resolution / 2.0)
+
+
+mat2 rotate2d(float angle){
+    return mat2(
+        cos(angle), sin(angle),
+        -sin(angle), cos(angle)
+    );
+}
+
+// Map a float UV value in the range [0, 32)
+int bucket(float x) {
+    // We don't want negatives
+    float positive = abs(x);
+    //Make sure numbers are in the range [0, 1)
+    float cycled = fract(positive);
+    //Scale up to [0, 32)
+    float scaled = cycled * 32.0;
+    //Truncate to get the bucket
+    return int(scaled);
+}
+
+
 void main() {
+
+    // Calculate a rotation matrix
+    mat2 rot = rotate2d(noise_buffer[6] * PI / 2.0);
+    vec2 offset = vec2(noise_buffer[7], noise_buffer[8]);
+
     // Range: [0, 1]
-    vec2 uv = gl_FragCoord.xy / resolution;
+    vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x - offset;
+    uv = rot * uv;
+
+
     // Range: [0, 31];
-    int x_bucket = int(floor(uv.x * 32.0));
-    int y_bucket = int(floor(uv.y * 32.0));
+    int x_bucket = bucket(uv.x);
+    int y_bucket = bucket(uv.y);
 
     // WebGL, could we have simple array access please?
     float x_intensity = 0.0;
