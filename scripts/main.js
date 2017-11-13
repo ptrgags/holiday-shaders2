@@ -80,7 +80,8 @@ var setup_shaders = () => {
         time: {value: 1.0},
         mouse: {value: new THREE.Vector2(0.0, 0.0)},
         resolution: {value: new THREE.Vector2(width, height)},
-        scroll: {value: 0}
+        scroll: {value: 0},
+        noise_buffer: {type: "1fv", value: Array(32).fill(0.0)}
     }
     material = new THREE.ShaderMaterial({
         uniforms: uniforms,
@@ -160,6 +161,7 @@ var attach_callbacks = () => {
         let hash = sha256(text);
         $("#hash").html(hash);
         let noise_buffer = normalize_hash(hash);
+        uniforms.noise_buffer.value = noise_buffer;
         console.log(noise_buffer);
     })
 };
