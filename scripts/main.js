@@ -10,15 +10,15 @@ var vert_shader_list = [
 ];
 
 var frag_shader_list = [
-    "test.frag"
+    "plaid.frag"
 ];
 
 var shader_titles = [
-    "Input Test"
+    "Plaid"
 ];
 
 var shader_descriptions = [
-    "This is a test."
+    "Make some plaid patterns"
 ];
 
 var current_vert = 0;
