@@ -10,19 +10,22 @@ var vert_shader_list = [
 ];
 
 var frag_shader_list = [
-    "plaid.frag"
+    "plaid.frag",
+    "tile.frag"
 ];
 
 var shader_titles = [
-    "Plaid"
+    "Plaid",
+    "Tiles"
 ];
 
 var shader_descriptions = [
-    "Make some plaid patterns"
+    "Make some plaid patterns",
+    "Make some triangle tile patterns"
 ];
 
 var current_vert = 0;
-var current_frag = 0;
+var current_frag = 1;
 
 var camera = null;
 var renderer = null;
@@ -63,8 +66,8 @@ var setup_shaders = () => {
 
     // lights, Camera, action! except there's no
     // lights or action yet...
-    var width = 1500; //$('#wrapper').width();
-    var height = 2100; //$('#wrapper').height();
+    var width = 250; //1500; //$('#wrapper').width();
+    var height = 350; //2100; //$('#wrapper').height();
     camera = new THREE.OrthographicCamera(
         -width / 2, width / 2, height/2, -height/2, 1, 1000);
     camera.position.z = 5;
