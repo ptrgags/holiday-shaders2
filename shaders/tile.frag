@@ -11,6 +11,8 @@ uniform float noise_buffer[32];
 #define PI 3.1415
 #define TAU (2.0 * PI)
 
+#define CENTER (resolution / 2.0)
+
 // Because WebGL doesn't allow unbounded array access :P
 float noise_lookup(float index, float cycle_offset) {
     float cycled = mod(index + cycle_offset, 32.0);
@@ -24,10 +26,25 @@ float noise_lookup(float index, float cycle_offset) {
 
 void main() {
     // Convert to UV coordinates
-    vec2 uv = gl_FragCoord.xy / resolution;
+    //vec2 uv = gl_FragCoord.xy / resolution;
+
+    // Centered UV coordinates
+    vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x;
+
+    // Mirror the UV space
+    vec2 mirrored_uv = abs(uv);
+
+    // Divide into many small UV spaces
+    vec2 uv_tiled = 2.0 * mirrored_uv * 2.0;
+    vec2 uv_bucket_id = floor(uv_tiled);
+    float square_id = 4.0 * uv_bucket_id.y + uv_bucket_id.x;
+
+    vec2 tile_uv = fract(uv_tiled);
+
+    // Make a tile ==========================================================
 
     //Divide into a 2x2 grid and number each square from 0-3
-    vec2 tile = 2.0 * uv;
+    vec2 tile = 2.0 * tile_uv;
     vec2 bucket = floor(tile);
     float square = 2.0 * bucket.y + bucket.x;
 
@@ -47,8 +64,11 @@ void main() {
     // Assign a number from 0-31
     float triangle_num = 8.0 * square + angle_bucket;
 
-    float noise = noise_lookup(triangle_num, 0.0);
+    // Determine how to color the triangle based on the noise buffer
+    float noise = noise_lookup(triangle_num, 3.0 * square_id);
     float threshold = step(0.5, noise);
+
+    // =======================================================================
 
     gl_FragColor = threshold * vec4(1.0, 0.0, 0.0, 1.0);
 }
