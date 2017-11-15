@@ -11,7 +11,8 @@ uniform float noise_buffer[32];
 #define PI 3.1415
 #define CENTER (resolution / 2.0)
 
-
+// Rotate around the origin angle radians. Remember that
+// matricies are column major in GLSL!
 mat2 rotate2d(float angle){
     return mat2(
         cos(angle), sin(angle),
@@ -33,21 +34,32 @@ int bucket(float x) {
 
 
 void main() {
-
-    // Calculate a rotation matrix
-    mat2 rot = rotate2d(noise_buffer[6] * PI / 2.0);
+    // Noise-controled variables =============================================
+    // Colors for columns and rows, respectively
+    vec4 x_color = vec4(noise_buffer[0], noise_buffer[1], noise_buffer[2], 1.0);
+    vec4 y_color = vec4(noise_buffer[3], noise_buffer[4], noise_buffer[5], 1.0);
+    // How much to tilt the plaid pattern
+    float tilt_angle = noise_buffer[6] * PI / 2.0;
+    // UV offset of the center of rotation
     vec2 offset = vec2(noise_buffer[7], noise_buffer[8]);
-
-    // Range: [0, 1]
-    vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x - offset;
-    uv = rot * uv;
+    // =========================================================================
 
 
-    // Range: [0, 31];
+    // Define UV Coordinates starting from the center
+    vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x;
+
+    // Tilt the coordinate space
+    uv = rotate2d(tilt_angle) * uv;
+
+    // move the origin
+    uv -= offset;
+
+    // divide space into buckets numbered from 0 to 31
+    // the numbering wraps around if we are too far away from the origin.
     int x_bucket = bucket(uv.x);
     int y_bucket = bucket(uv.y);
 
-    // WebGL, could we have simple array access please?
+    // Lookup the intensities from the noise buffer. All 32 values are used.
     float x_intensity = 0.0;
     float y_intensity = 0.0;
     for (int i = 0; i < 32; i++) {
@@ -57,8 +69,6 @@ void main() {
             y_intensity = noise_buffer[i];
     }
 
-    vec4 x_color = vec4(noise_buffer[0], noise_buffer[1], noise_buffer[2], 1.0);
-    vec4 y_color = vec4(noise_buffer[3], noise_buffer[4], noise_buffer[5], 1.0);
-
+    // Take the union of the horizontal and vertical stripes.
     gl_FragColor = max(x_color * x_intensity, y_color * y_intensity);
 }

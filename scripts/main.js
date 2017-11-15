@@ -63,8 +63,8 @@ var setup_shaders = () => {
 
     // lights, Camera, action! except there's no
     // lights or action yet...
-    var width = 250; //$('#wrapper').width();
-    var height = 350; //$('#wrapper').height();
+    var width = 1500; //$('#wrapper').width();
+    var height = 2100; //$('#wrapper').height();
     camera = new THREE.OrthographicCamera(
         -width / 2, width / 2, height/2, -height/2, 1, 1000);
     camera.position.z = 5;
@@ -162,7 +162,6 @@ var attach_callbacks = () => {
         $("#hash").html(hash);
         let noise_buffer = normalize_hash(hash);
         uniforms.noise_buffer.value = noise_buffer;
-        console.log(noise_buffer);
     })
 };
 
