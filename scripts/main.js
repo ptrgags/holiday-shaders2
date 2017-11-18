@@ -17,7 +17,8 @@ var vert_shader_list = [
 
 var frag_shader_list = [
     "plaid.frag",
-    "tile.frag"
+    "tile.frag",
+    "newton.frag"
 ];
 
 var shader_titles = [
@@ -31,7 +32,7 @@ var shader_descriptions = [
 ];
 
 var current_vert = 0;
-var current_frag = 1;
+var current_frag = 2;
 
 var camera = null;
 var renderer = null;
@@ -104,8 +105,8 @@ var setup_shaders = () => {
 
     // lights, Camera, action! except there's no
     // lights or action yet...
-    var width = 250; //1500; //$('#wrapper').width();
-    var height = 350; //2100; //$('#wrapper').height();
+    var width = 500; //1500; //$('#wrapper').width();
+    var height = 700; //2100; //$('#wrapper').height();
     camera = new THREE.OrthographicCamera(
         -width / 2, width / 2, height/2, -height/2, 1, 1000);
     camera.position.z = 5;
