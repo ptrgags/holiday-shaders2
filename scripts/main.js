@@ -8,7 +8,9 @@ var frag_shaders = [];
 
 var shader_lib = [
     "header.frag",
-    "tiling.frag"
+    "tiling.frag",
+    "signals.frag",
+    "polar.frag"
 ];
 
 var vert_shader_list = [
