@@ -2,8 +2,14 @@
 
 var uniforms = {};
 
+var library = {};
 var vert_shaders = [];
 var frag_shaders = [];
+
+var shader_lib = [
+    "header.frag",
+    "tiling.frag"
+];
 
 var vert_shader_list = [
     "default.vert"
@@ -31,6 +37,26 @@ var camera = null;
 var renderer = null;
 var material = null;
 
+let preload_lib = (fname) => {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `shader_lib/${fname}`,
+            dataType: 'text',
+            success: resolve,
+            error: reject
+        });
+    });
+};
+
+let load_lib = () => {
+    return Promise.all(shader_lib.map(preload_lib));
+}
+
+let store_lib = (shader_text) => {
+    for (var i = 0; i < shader_lib.length; i++)
+        library[shader_lib[i]] = shader_text[i];
+}
+
 var preload_shader = (fname) => {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -55,9 +81,21 @@ var store_vert_shaders = (shader_text) => {
         vert_shaders.push(shader_text[i]);
 };
 
+let import_lib = (import_line) => {
+    let [, fname] = import_line.trim().split(" ");
+    return library[fname];
+}
+
 var store_frag_shaders = (shader_text) => {
-    for (var i = 0; i < frag_shader_list.length; i++)
-        frag_shaders.push(shader_text[i]);
+    let header = library['header.frag'];
+    for (var i = 0; i < frag_shader_list.length; i++) {
+        let text = shader_text[i];
+        let [imports, shader] = text.split("-- END IMPORTS --");
+        let import_lines = imports.split(/[\r\n]+/);
+        let imported = import_lines.map(import_lib).join('\n');
+        let full_shader = `${header}\n${imported}\n${shader}`
+        frag_shaders.push(full_shader);
+    }
 };
 
 var setup_shaders = () => {
@@ -169,7 +207,9 @@ var attach_callbacks = () => {
 };
 
 $(document).ready(() => {
-    load_vert_shaders()
+    load_lib()
+        .then(store_lib)
+        .then(load_vert_shaders)
         .then(store_vert_shaders)
         .then(load_frag_shaders)
         .then(store_frag_shaders)

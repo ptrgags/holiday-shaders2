@@ -1,15 +1,4 @@
-#ifdef GL_ES
-precision highp float;
-#endif
-
-uniform float time;
-uniform vec2 resolution;
-uniform vec2 mouse;
-uniform int scroll;
-uniform float noise_buffer[32];
-
-#define PI 3.1415
-#define CENTER (resolution / 2.0)
+-- END IMPORTS --
 
 // Rotate around the origin angle radians. Remember that
 // matricies are column major in GLSL!
