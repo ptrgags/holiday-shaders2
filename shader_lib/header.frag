@@ -41,3 +41,10 @@ float noise_lookup(float index, float cycle_offset) {
     }
     return 0.0;
 }
+
+/**
+ * Shortcut if we don't care about the offset.
+ */
+float noise_lookup(float index) {
+    return noise_lookup(index, 0.0);
+}

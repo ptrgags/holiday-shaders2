@@ -20,21 +20,26 @@ var vert_shader_list = [
 var frag_shader_list = [
     "plaid.frag",
     "tile.frag",
-    "newton.frag"
+    "newton.frag",
+    "warp.frag"
 ];
 
 var shader_titles = [
     "Plaid",
-    "Tiles"
+    "Tiles",
+    "Newton's Method Fractal",
+    "Warped Space",
 ];
 
 var shader_descriptions = [
     "Make some plaid patterns",
-    "Make some triangle tile patterns"
+    "Make some triangle tile patterns",
+    "A fractal made with Newton's Method",
+    "Let's take space and warp it"
 ];
 
 var current_vert = 0;
-var current_frag = 2;
+var current_frag = 3;
 
 var camera = null;
 var renderer = null;
@@ -125,7 +130,10 @@ var setup_shaders = () => {
         mouse: {value: new THREE.Vector2(0.0, 0.0)},
         resolution: {value: new THREE.Vector2(width, height)},
         scroll: {value: 0},
-        noise_buffer: {type: "1fv", value: Array(32).fill(0.0)}
+        noise_buffer: {
+            type: "1fv",
+            value: Array(32).fill(0.0).map((x) => Math.random())
+        }
     }
     material = new THREE.ShaderMaterial({
         uniforms: uniforms,
