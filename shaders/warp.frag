@@ -1,6 +1,7 @@
 import tiling.frag
 import signals.frag
 import polar.frag
+import noise.frag
 -- END IMPORTS --
 
 mat3 noise_matrix(float offset) {
@@ -26,24 +27,7 @@ vec2 homogeneous_mat_mult(mat3 t, vec2 v) {
     return transformed.xy / transformed.z;
 }
 
-/**
- * Interpret 3 floats from the noise buffer as a color
- */
-vec4 noise_color(float offset) {
-    return vec4(
-        noise_lookup(0.0, offset),
-        noise_lookup(1.0, offset),
-        noise_lookup(2.0, offset),
-        1.0
-    );
-}
 
-vec2 noise_vec2(float offset) {
-    return vec2(
-        noise_lookup(0.0, offset),
-        noise_lookup(1.0, offset)
-    );
-}
 
 void main() {
     vec2 uv = gl_FragCoord.xy / resolution;

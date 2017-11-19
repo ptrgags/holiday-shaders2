@@ -10,7 +10,8 @@ var shader_lib = [
     "header.frag",
     "tiling.frag",
     "signals.frag",
-    "polar.frag"
+    "polar.frag",
+    "noise.frag"
 ];
 
 var vert_shader_list = [
@@ -21,7 +22,8 @@ var frag_shader_list = [
     "plaid.frag",
     "tile.frag",
     "newton.frag",
-    "warp.frag"
+    "warp.frag",
+    "spirals.frag"
 ];
 
 var shader_titles = [
@@ -29,17 +31,19 @@ var shader_titles = [
     "Tiles",
     "Newton's Method Fractal",
     "Warped Space",
+    "Spirals"
 ];
 
 var shader_descriptions = [
     "Make some plaid patterns",
     "Make some triangle tile patterns",
     "A fractal made with Newton's Method",
-    "Let's take space and warp it"
+    "Let's take space and warp it",
+    "Spirals."
 ];
 
 var current_vert = 0;
-var current_frag = 3;
+var current_frag = 4;
 
 var camera = null;
 var renderer = null;
