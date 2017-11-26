@@ -1,5 +1,16 @@
 "use strict";
 
+// The noise buffer is always the same length
+const BUFFER_LENGTH = 32;
+
+// Radices. I never thought I'd use this word.
+const RADIX_HEX = 16;
+const RADIX_DEC = 10;
+
+// Maximum ranges for different types of numbers
+const MAX_DIGIT = 9;
+const MAX_BYTE = 255;
+
 class NoiseSource {
     constructor() {
         this.selected_source = "hash";
@@ -7,6 +18,8 @@ class NoiseSource {
         this.time = "";
         this.time_hash = "";
         this.rand_hash = "";
+        this.rand_updates = 0;
+        this.rand_freq = 5;
         this.manual_hash = "";
         this.setup();
     }
@@ -36,7 +49,17 @@ class NoiseSource {
     }
 
     update_rand() {
+        //TODO: Check whether to skip updating
 
+        // Make a buffer of 32 bytes
+        let empty = Array(BUFFER_LENGTH).fill(0.0);
+        let rand = empty
+            .map(NoiseSource.rand_hex_byte)
+            .map(NoiseSource.pad_hex_byte);
+
+        //Convert to a hex number
+        this.rand_hash = rand.join('');
+        $("#rand-hash").html(this.rand_hash);
     }
 
     update_manual() {
@@ -50,6 +73,7 @@ class NoiseSource {
         //Periodically update the time and random hash
         const UPDATE_INTERVAL = 100;
         setInterval(() => this.update_time(), UPDATE_INTERVAL);
+        setInterval(() => this.update_rand(), UPDATE_INTERVAL);
 
     }
 
@@ -63,8 +87,8 @@ class NoiseSource {
         let digits = time.toISOString().replace(/[^\d]/g, '');
 
         //Pad with zeros until we have 32 characters
-        const BUFFER_LENGTH = 32;
         let num_zeroes = BUFFER_LENGTH - digits.length;
+        //TODO: Randomly fill the rest?
         let zeroes = '0'.repeat(num_zeroes);
         let padded = digits + zeroes;
 
@@ -72,9 +96,10 @@ class NoiseSource {
         let chars = [...padded];
 
         // Map on to hex digits.
-        const RADIX_DEC = 10;
         let all_digits = chars.map(x => parseInt(x, RADIX_DEC));
-        let hex_chars = all_digits.map(this.digit_to_hex);
+        let hex_chars = all_digits
+            .map(NoiseSource.digit_to_hex)
+            .map(NoiseSource.pad_hex_byte);
 
         // Finally, join the strings together
         return hex_chars.join('')
@@ -84,17 +109,31 @@ class NoiseSource {
      * Take a digit as an int from 0-9 and map it onto a hex digit
      * map it from [0, 9] -> [0, 255] -> ["00", "ff"]
      */
-    digit_to_hex(d) {
+    static digit_to_hex(d) {
         // Normalize to [0, 1]
-        const MAX_DIGIT = 9;
         let normalized = d / MAX_DIGIT;
 
         // Scale to [0, 255] and makee sure it is an integer
-        const MAX_BYTE = 255;
         let scaled = Math.floor(normalized * MAX_BYTE);
 
         // Convert to a 2-digit hex string
-        const RADIX_HEX = 16;
         return scaled.toString(RADIX_HEX);
+    }
+
+    /**
+     * Calculate a random number from 0-255 but return it as a hex string.
+     */
+    static rand_hex_byte() {
+        let rand = Math.random() * (MAX_BYTE + 1);
+        let rand_int = Math.floor(rand);
+        return rand_int.toString(RADIX_HEX);
+    }
+
+    static pad_hex_byte(x) {
+        if (x.length != 2)
+            return '0' + x
+        else
+            return x
+
     }
 }
