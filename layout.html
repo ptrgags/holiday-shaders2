@@ -20,12 +20,16 @@
     </script>
 
     <!-- Three.js -->
+    <!-- TODO: Move this to vendor/ -->
     <script src="scripts/three.min.js"></script>
 
     <!-- SHA-256 hash function -->
     <script src="scripts/sha256.js"></script>
 
-    <!-- Code for this program -->
+    <!-- Helper libraries -->
+    <script src="scripts/NoiseSource.js"></script>
+
+    <!-- Main Script -->
     <script src="scripts/main2.js"></script>
 </head>
 <body>
@@ -58,7 +62,7 @@
                     Hash
                     <input id="hash-input" placeholder="Type any text here!"/>
                     &rarr;
-                    <span id="hash-output"></span>
+                    <code id="hash-output"></code>
                 </div>
 
                 <!-- Use the current time as the noise buffer -->
@@ -66,9 +70,9 @@
                     <input type="radio" name="noise-source" value="time"/>
                     Time
                     &rarr;
-                    <span id="time"></span>
+                    <code id="time"></code>
                     &rarr;
-                    <span id="time-hash"></span>
+                    <code id="time-hash"></code>
                 </div>
 
                 <!-- Use random numbers as the buffer -->
@@ -76,7 +80,7 @@
                     <input type="radio" name="noise-source" value="random"/>
                     Random
                     &rarr;
-                    <span id="rand-hash"></span>
+                    <code id="rand-hash"></code>
                     <br/>
                     Frequency: Low
                     <input id="rand-freq" type="range" min="1" max="10" step="1" value="5" />
@@ -88,6 +92,8 @@
                     <input type="radio" name="noise-source" value="manual"/>
                     Manual
                     <div id="manual-controls">[CONTROLS]</div>
+                    &rarr;
+                    <code id="manual-hash"></code>
                 </div>
             </div>
         </div>
