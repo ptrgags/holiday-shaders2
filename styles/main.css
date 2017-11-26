@@ -27,3 +27,8 @@ canvas#three {
     box-shadow: 10px 10px 5px #cccccc;
     border-radius: 10px;
 }
+
+#rand-freq {
+    width: 10%;
+    display: inline-block;
+}

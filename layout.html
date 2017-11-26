@@ -2,14 +2,31 @@
 <html>
 <head>
     <meta charset="utf-8">
+
     <title>Three.js Shaders</title>
+
     <link rel="stylesheet" href="styles/main.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap & JQuery -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous">
+    </script>
+
+    <!-- Three.js -->
     <script src="scripts/three.min.js"></script>
+
+    <!-- SHA-256 hash function -->
     <script src="scripts/sha256.js"></script>
-    <script src="scripts/main.js"></script>
+
+    <!-- Code for this program -->
+    <script src="scripts/main2.js"></script>
 </head>
 <body>
     <div class="container">
@@ -20,7 +37,11 @@
                 <button id="prev" class="btn btn-primary">Previous</button>
             </div>
             <div class="col-sm-8 text-center">
-                <button class="btn btn-primary" data-target="#settings" data-toggle="collapse">Settings</button>
+                <button class="btn btn-primary"
+                        data-target="#settings"
+                        data-toggle="collapse">
+                    Settings
+                </button>
             </div>
             <div class="col-sm-2 text-right">
                 <button id="next" class="btn btn-primary">Next</button>
@@ -28,9 +49,46 @@
         </div>
 
         <!-- Collapsible Settings panel -->
-        <div id="settings" class="collapse">
-            <div class="well">
-                AAAH you found me!
+        <div id="settings" class="collapse well">
+            <div id="noise-source">
+                <label>Noise Source</label>
+                <!-- Use a SHA-256 hash as the noise buffer -->
+                <div class="form-group">
+                    <input type="radio" name="noise-source" value="hash"/>
+                    Hash
+                    <input id="hash-input" placeholder="Type any text here!"/>
+                    &rarr;
+                    <span id="hash-output"></span>
+                </div>
+
+                <!-- Use the current time as the noise buffer -->
+                <div class="form-group">
+                    <input type="radio" name="noise-source" value="time"/>
+                    Time
+                    &rarr;
+                    <span id="time"></span>
+                    &rarr;
+                    <span id="time-hash"></span>
+                </div>
+
+                <!-- Use random numbers as the buffer -->
+                <div class="form-group">
+                    <input type="radio" name="noise-source" value="random"/>
+                    Random
+                    &rarr;
+                    <span id="rand-hash"></span>
+                    <br/>
+                    Frequency: Low
+                    <input id="rand-freq" type="range" min="1" max="10" step="1" value="5" />
+                    High
+                </div>
+
+                <!-- MANUAL OVERRIDE -->
+                <div class="form-group">
+                    <input type="radio" name="noise-source" value="manual"/>
+                    Manual
+                    <div id="manual-controls">[CONTROLS]</div>
+                </div>
             </div>
         </div>
 
