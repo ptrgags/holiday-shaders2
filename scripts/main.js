@@ -23,7 +23,10 @@ var frag_shader_list = [
     "tile.frag",
     "newton.frag",
     "warp.frag",
-    "spirals.frag"
+    "spirals.frag",
+    "honeycomb.frag",
+    "invisible_ink.frag",
+    "bump_map.frag"
 ];
 
 var shader_titles = [
@@ -31,7 +34,10 @@ var shader_titles = [
     "Tiles",
     "Newton's Method Fractal",
     "Warped Space",
-    "Spirals"
+    "Spirals",
+    "Honeycomb",
+    "Invisible Ink",
+    "Bump Map"
 ];
 
 var shader_descriptions = [
@@ -39,11 +45,14 @@ var shader_descriptions = [
     "Make some triangle tile patterns",
     "A fractal made with Newton's Method",
     "Let's take space and warp it",
-    "Spirals."
+    "Spirals.",
+    "Glowing honeycomb shape",
+    "This one is inspired by my real-life ink fractals",
+    "Bump maps. [Technical description here]"
 ];
 
 var current_vert = 0;
-var current_frag = 4;
+var current_frag = 5;
 
 var camera = null;
 var renderer = null;
