@@ -1,4 +1,5 @@
 import tiling.frag
+import noise.frag
 -- END IMPORTS --
 
 #define cot(x) (1.0 / tan(x))
@@ -23,6 +24,10 @@ vec4 display(vec4 v) {
 
 float min_component(vec3 v) {
     return min(v.x, min(v.y, v.z));
+}
+
+float max_component(vec3 v) {
+    return max(v.x, max(v.y, v.z));
 }
 
 vec3 cylindrical_to_cartesian(vec3 cyl) {
@@ -111,16 +116,21 @@ void main() {
     vec3 cartesian = cylindrical_to_cartesian(cylindrical);
     vec3 normal = normalize(cartesian);
 
+    // Pick a color. any color.
+    vec4 color_regular = noise_color(5.0);
+    vec4 color_flipped = noise_color(6.0);
+    vec4 color = mix(color_regular, color_flipped, flipped);
+
     // Vector from pixel to light (the mouse position at z = -1)
-    vec3 light = vec3(mouse_uv - uv, -1);
+    vec3 light = vec3(mouse_uv - uv, -1.0);
+    light = normalize(light);
 
     // Calculate the light falloff. Just make a blurry circle
     float dist_from_light = length(uv - mouse_uv);
     float falloff = smoothstep(0.7, 0.1, dist_from_light);
 
-    // Calculate Lambertian reflectance
-    float intensity = 1.0;
-    float lambert = falloff * dot(light, normal);
+    // Calculate diffuse lighting
+    float diffuse = falloff * dot(light, normal);
 
-    gl_FragColor = display(lambert);
+    gl_FragColor = diffuse * color;
 }
