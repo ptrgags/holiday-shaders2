@@ -52,7 +52,7 @@ var shader_descriptions = [
 ];
 
 var current_vert = 0;
-var current_frag = 5;
+var current_frag = 7;
 
 var camera = null;
 var renderer = null;
