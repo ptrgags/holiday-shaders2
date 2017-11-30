@@ -11,7 +11,9 @@ var shader_lib = [
     "tiling.frag",
     "signals.frag",
     "polar.frag",
-    "noise.frag"
+    "noise.frag",
+    "display.frag",
+    "trig.frag"
 ];
 
 var vert_shader_list = [
@@ -52,7 +54,7 @@ var shader_descriptions = [
 ];
 
 var current_vert = 0;
-var current_frag = 7;
+var current_frag = 5;
 
 var camera = null;
 var renderer = null;

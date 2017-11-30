@@ -1,26 +1,8 @@
 import tiling.frag
 import noise.frag
+import display.frag
+import trig.frag
 -- END IMPORTS --
-
-#define cot(x) (1.0 / tan(x))
-#define csc(x) (1.0 / sin(x))
-#define sec(x) (1.0 / cos(x))
-
-vec4 display(float x) {
-    return x * vec4(1.0);
-}
-
-vec4 display(vec2 v) {
-    return vec4(v, 0.0, 1.0);
-}
-
-vec4 display(vec3 v) {
-    return vec4(v, 1.0);
-}
-
-vec4 display(vec4 v) {
-    return v;
-}
 
 float min_component(vec3 v) {
     return min(v.x, min(v.y, v.z));
