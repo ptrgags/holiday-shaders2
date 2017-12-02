@@ -1,4 +1,8 @@
-class ShaderLoader {
+/**
+ * This class handles loading shader code via AJAX and
+ * storing it for later access.
+ */
+class ShaderLibrary {
     constructor() {
         this.config = {};
         this.library = {};
@@ -33,7 +37,7 @@ class ShaderLoader {
         // Determine filenames
         let lib_urls = this.config.libs.map((x) => `shader_lib/${x}.frag`)
         // Make promises
-        let fetch_libs = lib_urls.map(ShaderLoader.file_promise);
+        let fetch_libs = lib_urls.map(ShaderLibrary.file_promise);
         // Load everything and then store them all at once.
         return Promise.all(fetch_libs).then((x) => this.store_libs(x));
     }
@@ -58,8 +62,8 @@ class ShaderLoader {
         let frag_urls = this.config.fragment.map((x) => `shaders/${x.id}.frag`);
 
         // Get promises to fetch all the files.
-        let fetch_vert = vert_urls.map(ShaderLoader.file_promise);
-        let fetch_frag = frag_urls.map(ShaderLoader.file_promise);
+        let fetch_vert = vert_urls.map(ShaderLibrary.file_promise);
+        let fetch_frag = frag_urls.map(ShaderLibrary.file_promise);
 
         // Load everything and then store them all at once.
         return Promise.all(fetch_vert)
