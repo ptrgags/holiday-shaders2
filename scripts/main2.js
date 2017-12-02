@@ -2,6 +2,9 @@
 // components. This is used like a singleton
 let MESSENGER = new Messenger();
 
+// Throw variables here for debugging;
+let debug = {};
+
 $(document).ready(() => {
     // Build a tree of objects that manage the web page ===================
 
@@ -10,7 +13,8 @@ $(document).ready(() => {
 
     // The UniformManager manages the uniforms that are passed to each shader.
     // This needs to be able to access the noise buffer.
-    // let uniform_manager = new UniformManager(noise_source)
+    let uniform_manager = new UniformManager(noise_source);
+    debug.uniforms = uniform_manager;
 
     // The ShaderLibrary loads and stores the shader code
     let shader_lib = new ShaderLibrary();
