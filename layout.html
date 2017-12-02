@@ -42,18 +42,21 @@
         <!-- Title and main buttons to switch shaders/open settings -->
         <h3 class="text-center">Holiday Shaders 2</h3>
         <div class="row">
+            <!-- TODO: Use Glyphicons instead -->
             <div class="col-sm-2">
-                <button id="prev" class="btn btn-primary">Previous</button>
+                <!--<button id="prev" class="btn btn-primary">Previous</button>-->
             </div>
             <div class="col-sm-8 text-center">
+                <button id="prev" class="btn btn-primary">Previous</button>
                 <button class="btn btn-primary"
                         data-target="#settings"
                         data-toggle="collapse">
                     Settings
                 </button>
+                <button id="next" class="btn btn-primary">Next</button>
             </div>
             <div class="col-sm-2 text-right">
-                <button id="next" class="btn btn-primary">Next</button>
+                <!--<button id="next" class="btn btn-primary">Next</button>-->
             </div>
         </div>
 
@@ -100,6 +103,13 @@
                     <div id="manual-controls">[CONTROLS]</div>
                     &rarr;
                     <code id="manual-hash"></code>
+                </div>
+            </div>
+            <div id="vertex-settings">
+                <label>Vertex Shader</label>
+                <div class="form-group">
+                    <select id="vertex-shader" class="form-control">
+                    </select>
                 </div>
             </div>
         </div>
