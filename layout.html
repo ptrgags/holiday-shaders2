@@ -29,8 +29,9 @@
     <!-- Helper libraries -->
     <script src="scripts/Messenger.js"></script>
     <script src="scripts/NoiseSource.js"></script>
+    <script src="scripts/AnimationManager.js"></script>
     <script src="scripts/UniformManager.js"></script>
-    
+
     <script src="scripts/ShaderLibrary.js"></script>
 
     <!-- Main Script -->
@@ -105,6 +106,12 @@
         <div class="row">
             <!-- Canvas for displaying the shader -->
             <div class="col-sm-8 text-center">
+                <!-- Animation controls -->
+                <div id="animation">
+                    <button id="pause" class="btn btn-primary">Pause</button>
+                    <button id="rewind" class="btn btn-primary">Rewind</button>
+                    Elapsed Time (sec): <span id="animation-time"></span>
+                </div>
                 <h4 class="text-center">Output</h4>
                 <canvas id="screen"></canvas>
             </div>

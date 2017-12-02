@@ -11,9 +11,17 @@ $(document).ready(() => {
     // The NoiseSource selects which hash to use.
     let noise_source = new NoiseSource();
 
+    // The AnimationManager handles keeping track of the animation's elapsed
+    // time and allows play/pause/rewind functionality
+    let animation_manager = new AnimationManager();
+
     // The UniformManager manages the uniforms that are passed to each shader.
     // This needs to be able to access the noise buffer.
-    let uniform_manager = new UniformManager(noise_source);
+    let uniform_manager = new UniformManager(noise_source, animation_manager);
+
+    //TODO: Remove me
+    setInterval(() => uniform_manager.on_new_frame(), 100);
+    setInterval(() => console.log(uniform_manager.uniforms.time.value), 1000);
     debug.uniforms = uniform_manager;
 
     // The ShaderLibrary loads and stores the shader code
