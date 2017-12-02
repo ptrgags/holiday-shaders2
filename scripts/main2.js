@@ -1,6 +1,6 @@
 // The Messenger is a pub/sub system to handle communication between
 // components. This is used like a singleton
-// let MESSENGER = new Messenger();
+let MESSENGER = new Messenger();
 
 $(document).ready(() => {
     // Build a tree of objects that manage the web page ===================
