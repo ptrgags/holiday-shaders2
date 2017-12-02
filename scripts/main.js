@@ -28,7 +28,8 @@ var frag_shader_list = [
     "spirals.frag",
     "honeycomb.frag",
     "invisible_ink.frag",
-    "bump_map.frag"
+    "bump_map.frag",
+    "wheat.frag"
 ];
 
 var shader_titles = [
@@ -39,7 +40,8 @@ var shader_titles = [
     "Spirals",
     "Honeycomb",
     "Invisible Ink",
-    "Bump Map"
+    "Bump Map",
+    "Wheat"
 ];
 
 var shader_descriptions = [
@@ -50,11 +52,12 @@ var shader_descriptions = [
     "Spirals.",
     "Glowing honeycomb shape",
     "This one is inspired by my real-life ink fractals",
-    "Bump maps. [Technical description here]"
+    "Bump maps. [Technical description here]",
+    "Wheat-inspired texture"
 ];
 
 var current_vert = 0;
-var current_frag = 5;
+var current_frag = 8;
 
 var camera = null;
 var renderer = null;
