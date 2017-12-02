@@ -8,7 +8,7 @@ $(document).ready(() => {
     holiday_shaders2.shader_loader = loader;
 
     // Start the program with a ES6 Promise Chain
-    loader.load();
+    loader.load()
         //.then(console.log("Done!"))
-        //.catch(console.error);
+        .catch(console.error);
 });
