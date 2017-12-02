@@ -155,18 +155,23 @@ class NoiseSource {
         return rand_int.toString(RADIX_HEX);
     }
 
+    /**
+     * Pad a hexadecimal character with 0s to be 2 characters wide
+     */
     static pad_hex_byte(x) {
         if (x.length != 2)
             return '0' + x
         else
             return x
-
     }
 
+    /**
+     * Convert a 32-byte hexadecimal hash to
+     * a buffer of 32 floats.
+     */
     static make_noise_buffer(hash) {
-        const SHA_LENGTH_BYTES = 32;
         let buffer = [];
-        for (let i = 0; i < SHA_LENGTH_BYTES; i++) {
+        for (let i = 0; i < BUFFER_LENGTH; i++) {
             let byte_hex = hash.slice(2 * i, 2 * i + 2);
             let byte_int = parseInt(byte_hex, 16);
             let norm = byte_int / 255;

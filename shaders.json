@@ -1,0 +1,24 @@
+{
+    "libs": [
+        "header",
+        "noise",
+        "polar",
+        "signals",
+        "tiling"
+    ],
+    "vert": [
+        "default"
+    ],
+    "frag": [
+        {
+            "id": "newton",
+            "title": "Newton's Method Fractal",
+            "desc": "---"
+        },
+        {
+            "id": "plaid",
+            "title": "Plaid Fractal",
+            "desc": "---"
+        }
+    ]
+}
