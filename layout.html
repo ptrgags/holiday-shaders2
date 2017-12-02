@@ -58,7 +58,7 @@
                 <label>Noise Source</label>
                 <!-- Use a SHA-256 hash as the noise buffer -->
                 <div class="form-group">
-                    <input type="radio" name="noise-source" value="hash"/>
+                    <input type="radio" name="noise-source" value="sha_hash"/>
                     Hash
                     <input id="hash-input" placeholder="Type any text here!"/>
                     &rarr;
@@ -67,7 +67,7 @@
 
                 <!-- Use the current time as the noise buffer -->
                 <div class="form-group">
-                    <input type="radio" name="noise-source" value="time"/>
+                    <input type="radio" name="noise-source" value="time_hash"/>
                     Time
                     &rarr;
                     <span id="time"></span>
@@ -77,7 +77,7 @@
 
                 <!-- Use random numbers as the buffer -->
                 <div class="form-group">
-                    <input type="radio" name="noise-source" value="random"/>
+                    <input type="radio" name="noise-source" value="rand_hash"/>
                     Random
                     &rarr;
                     <code id="rand-hash"></code>
@@ -89,7 +89,7 @@
 
                 <!-- MANUAL OVERRIDE -->
                 <div class="form-group">
-                    <input type="radio" name="noise-source" value="manual"/>
+                    <input type="radio" name="noise-source" value="manual_hash"/>
                     Manual
                     <div id="manual-controls">[CONTROLS]</div>
                     &rarr;

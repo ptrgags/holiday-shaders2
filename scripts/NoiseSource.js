@@ -25,6 +25,9 @@ class NoiseSource {
     }
 
     setup() {
+        // Make sure sha_hash is the default
+        $("input[name=noise-source][value=sha_hash]").prop("checked", true);
+
         // Update everything once so we don't have blank output
         this.update_hash();
         this.update_time();
@@ -106,6 +109,29 @@ class NoiseSource {
     }
 
     /**
+     * Read the Noise Source radio button and return the corresponding
+     * hash value
+     */
+    get selected_hash() {
+        // Read the selected noise source radio button. The values
+        // map on to variables in this instancee
+        let hash_var_name = $("input[name=noise-source]:checked").val();
+
+        // Look up the variable which contains the proper hash.
+        return this[hash_var_name];
+    }
+
+    /**
+     * Read the selected noise hash and convert it to a noise buffer
+     * of floats from 0.0 to 1.0.
+     * This getter is used to update the uniforms dict.
+     */
+    get noise_buffer() {
+        let hash = this.selected_hash;
+        return NoiseSource.make_noise_buffer(hash);
+    }
+
+    /**
      * Take a digit as an int from 0-9 and map it onto a hex digit
      * map it from [0, 9] -> [0, 255] -> ["00", "ff"]
      */
@@ -135,5 +161,17 @@ class NoiseSource {
         else
             return x
 
+    }
+
+    static make_noise_buffer(hash) {
+        const SHA_LENGTH_BYTES = 32;
+        let buffer = [];
+        for (let i = 0; i < SHA_LENGTH_BYTES; i++) {
+            let byte_hex = hash.slice(2 * i, 2 * i + 2);
+            let byte_int = parseInt(byte_hex, 16);
+            let norm = byte_int / 255;
+            buffer.push(norm);
+        }
+        return buffer;
     }
 }
