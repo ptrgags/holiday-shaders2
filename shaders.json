@@ -6,10 +6,14 @@
         "signals",
         "tiling"
     ],
-    "vert": [
-        "default"
+    "vertex": [
+        {
+            "id": "default",
+            "title": "Default",
+            "desc": "---"
+        }
     ],
-    "frag": [
+    "fragment": [
         {
             "id": "newton",
             "title": "Newton's Method Fractal",
