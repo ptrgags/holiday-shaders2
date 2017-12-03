@@ -26,14 +26,11 @@ $(document).ready(() => {
     // and also displays shader information. Thus, it needs access to the
     // library.
     let shader_selector = new ShaderSelector(shader_lib);
-    setInterval(() => {
-        console.log(shader_selector.vertex_shader);
-        console.log(shader_selector.fragment_shader);
-    }, 1000);
 
     // The MaterialManager combines the UniformManager with the ShaderSelector
     // and creates a Three.js ShaderMaterial that is shared by all models.
-    // let material_manager = new MaterialManager(uniform_manager, shader_lib);
+    let material_manager = new MaterialManager(
+        uniform_manager, shader_selector);
 
     // This handles the default 2D scene
     // let viewer_2d = new ShaderViewer2D();
@@ -57,6 +54,7 @@ $(document).ready(() => {
     // Set up the page ====================================================
     shader_lib.load()
         .then(() => shader_selector.setup())
+        .then(() => material_manager.setup())
         .then(() => console.log("Done!"))
         .catch(console.error);
 });

@@ -12,6 +12,10 @@ class ShaderSelector {
         $('#prev').click(() => this.cycle_shaders(-1));
         $('#next').click(() => this.cycle_shaders(1));
 
+        // When the user selects a different vertex shader
+        $('#vertex-shader').change(() =>
+            MESSENGER.publish('shader_changed', 'vertex'));
+
         // Update the info panel.
         this.update();
     }
@@ -73,7 +77,10 @@ class ShaderSelector {
         this.index_frag += n;
         this.index_frag %= n;
 
-        // Finally, update the screen
+        // Publish an event saying the shader changed
+        MESSENGER.publish('shader_changed', 'fragment');
+
+        // Finally, update the info panel
         this.update();
     }
 }
