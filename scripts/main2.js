@@ -19,18 +19,17 @@ $(document).ready(() => {
     // This needs to be able to access the noise buffer.
     let uniform_manager = new UniformManager(noise_source, animation_manager);
 
-    //TODO: Remove me
-    setInterval(() => uniform_manager.on_new_frame(), 100);
-    setInterval(() => console.log(uniform_manager.uniforms.time.value), 1000);
-    debug.uniforms = uniform_manager;
-
     // The ShaderLibrary loads and stores the shader code
     let shader_lib = new ShaderLibrary();
 
     // The ShaderSelector handles selecting vertex/fragment shaders
     // and also displays shader information. Thus, it needs access to the
     // library.
-    // let shader_selector = new ShaderSelector(shader_lib);
+    let shader_selector = new ShaderSelector(shader_lib);
+    setInterval(() => {
+        console.log(shader_selector.vertex_shader);
+        console.log(shader_selector.fragment_shader);
+    }, 1000);
 
     // The MaterialManager combines the UniformManager with the ShaderSelector
     // and creates a Three.js ShaderMaterial that is shared by all models.
@@ -57,6 +56,7 @@ $(document).ready(() => {
 
     // Set up the page ====================================================
     shader_lib.load()
+        .then(() => shader_selector.setup())
         .then(() => console.log("Done!"))
         .catch(console.error);
 });

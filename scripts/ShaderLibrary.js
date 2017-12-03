@@ -10,6 +10,14 @@ class ShaderLibrary {
         this.fragment_shaders = [];
     }
 
+    get vertex_info() {
+        return this.config.vertex;
+    }
+
+    get fragment_info() {
+        return this.config.fragment;
+    }
+
     /**
      * Return a promise chain describing the loading
      * process at a high level.
