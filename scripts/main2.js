@@ -42,7 +42,7 @@ $(document).ready(() => {
     // let viewer_3d = new ShaderViewer3D(material_manager, settings_3d);
 
     // This class selects between 2D/3D
-    // let dimension_selector = new DimensionsSelector(viewer_2d, viewer_3d);
+    let dimension_selector = new DimensionsSelector(viewer_2d/*, viewer_3d */);
 
     // This class handles rendering to the canvas.
     // let renderer = new ShaderRenderer(dimension_selector);
@@ -55,7 +55,7 @@ $(document).ready(() => {
     shader_lib.load()
         .then(() => shader_selector.setup())
         .then(() => material_manager.setup())
-        .then(() => viewer_2d.setup())
-        .then(() => console.log("Done!"))
+        .then(() => dimension_selector.setup())
+        .then(() => console.log(dimension_selector.current_scene))
         .catch(console.error);
 });
