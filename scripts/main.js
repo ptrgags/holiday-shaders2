@@ -13,7 +13,8 @@ var shader_lib = [
     "polar.frag",
     "noise.frag",
     "display.frag",
-    "trig.frag"
+    "trig.frag",
+    "min_max.frag"
 ];
 
 var vert_shader_list = [
@@ -29,7 +30,8 @@ var frag_shader_list = [
     "honeycomb.frag",
     "invisible_ink.frag",
     "bump_map.frag",
-    "wheat.frag"
+    "wheat.frag",
+    "nested_voronoi.frag"
 ];
 
 var shader_titles = [
@@ -41,7 +43,8 @@ var shader_titles = [
     "Honeycomb",
     "Invisible Ink",
     "Bump Map",
-    "Wheat"
+    "Wheat",
+    "Nested Voronoi Diagram"
 ];
 
 var shader_descriptions = [
@@ -53,11 +56,12 @@ var shader_descriptions = [
     "Glowing honeycomb shape",
     "This one is inspired by my real-life ink fractals",
     "Bump maps. [Technical description here]",
-    "Wheat-inspired texture"
+    "Wheat-inspired texture",
+    "Cells within Cells..."
 ];
 
 var current_vert = 0;
-var current_frag = 8;
+var current_frag = 9;
 
 var camera = null;
 var renderer = null;

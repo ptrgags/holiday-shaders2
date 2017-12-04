@@ -2,15 +2,8 @@ import tiling.frag
 import noise.frag
 import display.frag
 import trig.frag
+import min_max.frag
 -- END IMPORTS --
-
-float min_component(vec3 v) {
-    return min(v.x, min(v.y, v.z));
-}
-
-float max_component(vec3 v) {
-    return max(v.x, max(v.y, v.z));
-}
 
 vec3 cylindrical_to_cartesian(vec3 cyl) {
     // Unpack the cylindrical coords for clarity
