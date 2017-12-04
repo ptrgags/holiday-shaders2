@@ -11,12 +11,15 @@ class UniformManager {
         // elapsed time
         this.animation = animation_manager;
 
+        this.width = 200;
+        this.height = 200;
+
         // This object colds the uniforms for the ShaderMaterial.
         this.uniforms = {
             // Seconds since the
             time: {value: this.animation.elapsed_time},
             mouse: {value: new THREE.Vector2(0.0, 0.0)},
-            resolution: {value: new THREE.Vector2(1.0, 1.0)},
+            resolution: {value: new THREE.Vector2(this.width, this.height)},
             scroll: {value: 0},
             noise_buffer: {
                 type: "1fv",

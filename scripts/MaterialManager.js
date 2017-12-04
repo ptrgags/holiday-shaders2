@@ -33,9 +33,9 @@ class MaterialManager {
     update_shaders(shader_type) {
         // Update the appropriate part of the material
         if (shader_type === 'fragment')
-            this.material.fragmentShader = this.shaders.current_frag;
+            this.material.fragmentShader = this.shaders.fragment_shader;
         else if (shader_type === 'vertex')
-            this.material.vertexShader = this.shaders.current_vert;
+            this.material.vertexShader = this.shaders.vertex_shader;
         else
             throw `Invalid shader type ${shader_type}`;
 

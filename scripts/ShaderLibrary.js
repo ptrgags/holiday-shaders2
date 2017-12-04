@@ -134,6 +134,8 @@ class ShaderLibrary {
             let lib = this.library[fname];
             if (lib === undefined)
                 throw `${fname} not a valid shader library`
+            else
+                return lib;
         } else if (comment_pattern.test(line)) {
             // Pass single-line comments through
             return line;

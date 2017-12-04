@@ -45,17 +45,21 @@ $(document).ready(() => {
     let dimension_selector = new DimensionsSelector(viewer_2d/*, viewer_3d */);
 
     // This class handles rendering to the canvas.
-    // let renderer = new ShaderRenderer(dimension_selector);
+    let renderer = new ShaderRenderer(dimension_selector);
 
     // This class sets up callbacks for global mouse/keyboard/other inputs
     // and sends events via the Messenger to whatever else needs it
     // let input_manager = new InputManager();
+
+    // This class handles changing the size of the canvas and publishing
+    // events.
+    // let res_manager = new ResolutionManager();
 
     // Set up the page ====================================================
     shader_lib.load()
         .then(() => shader_selector.setup())
         .then(() => material_manager.setup())
         .then(() => dimension_selector.setup())
-        .then(() => console.log(dimension_selector.current_scene))
+        .then(() => renderer.setup())
         .catch(console.error);
 });

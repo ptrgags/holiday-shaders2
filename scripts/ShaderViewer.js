@@ -38,6 +38,10 @@ class ShaderViewer2D extends ShaderViewer {
         )
         this.camera.position.z = CAMERA_Z;
     }
+
+    on_new_frame() {
+        this.material.on_new_frame();
+    }
 }
 
 
