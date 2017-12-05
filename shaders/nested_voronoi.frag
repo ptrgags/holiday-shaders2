@@ -100,7 +100,8 @@ VoronoiCells voronoi(Tiling2D grid) {
 
 void main() {
     vec2 uv = gl_FragCoord.xy / resolution.x;
-    Tiling2D squares = tile_2d(uv, vec2(2.0));
+    uv -= noise_vec2(0.0);
+    Tiling2D squares = tile_2d(uv, vec2(3.0));
 
     //vec2 center = hash22(squares.coords);
     /*
@@ -111,19 +112,24 @@ void main() {
 
     // First order voronoi
     VoronoiCells cells = voronoi(squares);
-    float voronoi_border = smoothstep(0.05, 0.044, cells.dist_from_border);
-    vec4 dist_color = vec4(0.5, 0.0, 1.0, 1.0) * voronoi_border;
+    float voronoi_border = smoothstep(0.03, 0.025, cells.dist_from_border);
 
-    //Tiling2D tiny_squares = tile_2d(cells.center_uv, vec2(1.0));
+    //TODO: Why do integer tilings turn into noise?
+    Tiling2D tiny_squares = tile_2d(cells.center_uv, vec2(2.1));
+    VoronoiCells tiny_cells = voronoi(tiny_squares);
+    float tiny_borders = smoothstep(0.02, 0.019, tiny_cells.dist_from_border);
+
     //cells = voronoi(tiny_squares);
-    //VoronoiCells tiny_cells = voronoi(tiny_squares);
 
+
+    vec4 thick_color = noise_color(2.0);
+    vec4 thin_color = noise_color(5.0);
 
     // Draw a border between cells as an overlay
     float border = step(0.95, max_component(squares.uv));
     vec4 border_color = vec4(1.0, 0.0, 0.0, 1.0);
 
-    vec4 color = mix(dist_color, border_color, border);
+    vec4 color = mix(thick_color, thin_color, max(tiny_borders, voronoi_border));
 
-    gl_FragColor = display(cells.center_uv);
+    gl_FragColor = display(color);
 }
