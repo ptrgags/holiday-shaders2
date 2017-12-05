@@ -16,3 +16,8 @@ vec2 noise_vec2(float offset) {
         noise_lookup(1.0, offset)
     );
 }
+
+vec2 noise_vec2(vec2 offset) {
+    float id = 19.0 * offset.x + offset.y;
+    return noise_vec2(id);
+}
