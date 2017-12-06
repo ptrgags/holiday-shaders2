@@ -15,7 +15,8 @@ var shader_lib = [
     "display.frag",
     "trig.frag",
     "min_max.frag",
-    "complex.frag"
+    "complex.frag",
+    "mandelbrot_julia.frag"
 ];
 
 var vert_shader_list = [
@@ -33,7 +34,8 @@ var frag_shader_list = [
     "bump_map.frag",
     "wheat.frag",
     "nested_voronoi.frag",
-    "mandelbrot.frag"
+    "mandelbrot.frag",
+    "julia.frag"
 ];
 
 var shader_titles = [
@@ -47,7 +49,8 @@ var shader_titles = [
     "Bump Map",
     "Wheat",
     "Nested Voronoi Diagram",
-    "Mandelbrot Set"
+    "Mandelbrot Set",
+    "Julia Set Fractal"
 ];
 
 var shader_descriptions = [
@@ -61,11 +64,12 @@ var shader_descriptions = [
     "Bump maps. [Technical description here]",
     "Wheat-inspired texture",
     "Cells within Cells...",
-    "Mandelbrot Set Fractal"
+    "Mandelbrot Set Fractal",
+    "Julia Set Fractal"
 ];
 
 var current_vert = 0;
-var current_frag = 10;
+var current_frag = 11;
 
 var camera = null;
 var renderer = null;
