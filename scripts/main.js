@@ -14,7 +14,8 @@ var shader_lib = [
     "noise.frag",
     "display.frag",
     "trig.frag",
-    "min_max.frag"
+    "min_max.frag",
+    "complex.frag"
 ];
 
 var vert_shader_list = [
@@ -31,7 +32,8 @@ var frag_shader_list = [
     "invisible_ink.frag",
     "bump_map.frag",
     "wheat.frag",
-    "nested_voronoi.frag"
+    "nested_voronoi.frag",
+    "mandelbrot.frag"
 ];
 
 var shader_titles = [
@@ -44,7 +46,8 @@ var shader_titles = [
     "Invisible Ink",
     "Bump Map",
     "Wheat",
-    "Nested Voronoi Diagram"
+    "Nested Voronoi Diagram",
+    "Mandelbrot Set"
 ];
 
 var shader_descriptions = [
@@ -57,11 +60,12 @@ var shader_descriptions = [
     "This one is inspired by my real-life ink fractals",
     "Bump maps. [Technical description here]",
     "Wheat-inspired texture",
-    "Cells within Cells..."
+    "Cells within Cells...",
+    "Mandelbrot Set Fractal"
 ];
 
 var current_vert = 0;
-var current_frag = 9;
+var current_frag = 10;
 
 var camera = null;
 var renderer = null;
