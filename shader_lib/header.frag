@@ -23,8 +23,10 @@ uniform float noise_buffer[NOISE_BUFFER_SIZE];
 #define PI 3.1415
 #define TAU (2.0 * PI)
 
-// Center of the screen in pixels
+// Thesee are useful for defining UV coordinates for 2D shaders
 #define CENTER (resolution / 2.0)
+#define REGULAR_UV (gl_FragCoord.xy / resolution.x)
+#define CENTERED_UV ((gl_FragCoord.xy - CENTER) / resolution.y)
 
 /**
  * look up a value in the noise buffer. The cycle_offset
