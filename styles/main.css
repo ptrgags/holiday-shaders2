@@ -32,3 +32,8 @@ canvas#three {
     width: 10%;
     display: inline-block;
 }
+
+.vertical-space {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}

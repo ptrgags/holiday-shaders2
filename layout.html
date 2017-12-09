@@ -43,7 +43,7 @@
     <script src="scripts/main2.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <!-- Title and main buttons to switch shaders/open settings -->
         <h3 class="text-center">Holiday Shaders 2</h3>
         <div class="row">
@@ -123,12 +123,20 @@
             <!-- Canvas for displaying the shader -->
             <div class="col-sm-8 text-center">
                 <!-- Animation controls -->
-                <div id="animation">
+                <div id="animation" class="vertical-space">
+                    <label>Animation</label>
                     <button id="pause" class="btn btn-primary">Pause</button>
                     <button id="rewind" class="btn btn-primary">Rewind</button>
                     Elapsed Time (sec): <span id="animation-time"></span>
                 </div>
-                <h4 class="text-center">Output</h4>
+                <div id="resolution" class="vertical-space">
+                    <label>Size</label>
+                    <button id="size-avatar" class="btn btn-primary">Avatar</button>
+                    <button id="size-atc-small" class="btn btn-primary">Small</button>
+                    <button id="size-atc-medium" class="btn btn-primary">Medium</button>
+                    <button id="size-atc-large" class="btn btn-primary">Large</button>
+                    <button id="size-fill" class="btn btn-primary">Fill Container</button>
+                </div>
                 <canvas id="screen"></canvas>
             </div>
 
