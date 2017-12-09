@@ -47,10 +47,14 @@ void main() {
     // Translate, rotate, and zoom
     vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / zoom + center;
 
-    float iterations = mandelbrot_julia(vec2(0.0), uv);
+    // Add depth from a blank slate
+    // Thanks to DeviantArt user PonceIndustries for the idea!
+    float num_iterations = mod(5.0 * time, 500.0);
 
-    vec4 hash_coloring = noise_lookup(iterations) *  color;
-    vec4 iteration_coloring = 2.0 * iterations / NUM_ITERATIONS * color2;
+    float iterations = mandelbrot_julia(vec2(0.0), uv, num_iterations);
+
+    vec4 hash_coloring = noise_lookup(iterations/*+ 1.5 * time*/) *  color;
+    vec4 iteration_coloring = 2.0 * iterations / MAX_ITERATIONS * color2;
     float mix_factor = noise_lookup(4.0);
 
     gl_FragColor = mix(hash_coloring, iteration_coloring, mix_factor);

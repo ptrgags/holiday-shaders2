@@ -1,8 +1,12 @@
-#define NUM_ITERATIONS 500.0
+#define MAX_ITERATIONS 1000.0
 
-float mandelbrot_julia(vec2 z_in, vec2 c) {
+float mandelbrot_julia(vec2 z_in, vec2 c, float iterations) {
     vec2 z = z_in;
-    for (float i = 0.0; i < NUM_ITERATIONS; i++) {
+    for (float i = 0.0; i < MAX_ITERATIONS; i++) {
+        // Allow controlling the number of iterations programmatically.
+        if (i >= iterations)
+            break;
+
         vec2 z_next = complex_mult(z, z) + c;
 
         // If we escaped the circle, return the iteration count

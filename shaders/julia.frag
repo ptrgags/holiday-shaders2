@@ -55,10 +55,11 @@ void main() {
     //vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / zoom + center;
     vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / 300.0;
 
-    float iterations = mandelbrot_julia(uv, c);
+    const float num_iterations = 500.0;
+    float iterations = mandelbrot_julia(uv, c, num_iterations);
 
     vec4 hash_coloring = noise_lookup(iterations) *  color;
-    vec4 iteration_coloring = 2.0 * iterations / NUM_ITERATIONS * color2;
+    vec4 iteration_coloring = 2.0 * iterations / MAX_ITERATIONS * color2;
     float mix_factor = noise_lookup(4.0);
 
     gl_FragColor = mix(hash_coloring , iteration_coloring, mix_factor);
