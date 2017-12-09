@@ -1,6 +1,9 @@
 /**
  * This is a list of a bunch of reusable binary patterns that return
- * either 0.0 or 1.0. There are also functions to select the patterns
+ * either 0.0 or 1.0. There are also functions to select the patterns.
+ *
+ * Required imports:
+ * polar.frag
  */
 
 #define TOTAL_PATTERNS 16.0
@@ -38,6 +41,16 @@ float waves(vec2 uv, float num_waves) {
  }
 
 /**
+ * Make a bunch of rectangles of random heights.
+ */
+float rand_signal(vec2 uv, float num_bins) {
+     float x = uv.x * num_bins;
+     float bin_id = floor(x);
+     float height = noise_lookup(bin_id);
+     return step(height, uv.y);
+ }
+
+/**
  * Draw chevron shapes that look like corners of a square
  */
 float corners(vec2 uv, float scale) {
@@ -72,6 +85,19 @@ float curves(vec2 uv, float num_curves) {
     return mod(curve_id, 2.0);
 }
 
+/**
+ * Beasically the same thing as curves, just with sine waves
+ */
+float ocean(vec2 uv, float num_curves) {
+     float y = uv.y * num_curves;
+     y += sin(4.0 * TAU * uv.x);
+     float curve_id = floor(y);
+     return mod(curve_id, 2.0);
+ }
+
+/**
+ * Interference between two sine waves, one at (0, 0), one at (1, 1)
+ */
 float interference(vec2 uv, float freq) {
     // This needs to be a larger number than
     float scaled_freq = 10.0 * freq;
@@ -95,6 +121,42 @@ float spikes(vec2 uv, float num_spikes) {
     return float(dist_center < thickness);
 }
 
+/**
+ * two sets of stripes in different directions
+ */
+float cross_hatch(vec2 uv, float spacing) {
+    const vec2 dir1 = normalize(vec2(2.0, 1.0));
+    const vec2 dir2 = normalize(vec2(1.0, 3.0));
+    float scaled_spacing = 4.0 * spacing;
+
+    // Scalar projection in two directions
+    float p1 = dot(uv, dir1);
+    float p2 = dot(uv, dir2);
+
+    // Turn into a vector so we can do simultaneous calculations
+    vec2 p = vec2(p1, p2);
+
+    //Make thin stripes
+    vec2 cell_uv = fract(p * scaled_spacing);
+    vec2 cell_coords = floor(p * scaled_spacing);
+    float line_thickness = cell_coords.x / scaled_spacing;
+    vec2 thin_lines = 1.0 - step(line_thickness, cell_uv);
+
+    // Union the lines but make them dark
+    return 1.0 - max(thin_lines.x, thin_lines.y);
+}
+
+/**
+ * Design on a polar grid
+ */
+float spokes(vec2 uv, float scale) {
+    vec2 centered = uv - 0.5;
+    vec2 polar = rect_to_polar(centered);
+    vec2 cell_coords = floor(scale * polar);
+    vec2 odd_even = mod(cell_coords, 2.0);
+    return min(odd_even.x, odd_even.y);
+}
+
 float select_pattern(vec2 uv, float select, float parameter) {
     int index = int(select * TOTAL_PATTERNS);
     if (index == 0) {
@@ -105,7 +167,7 @@ float select_pattern(vec2 uv, float select, float parameter) {
     } else if (index == 2) {
         return checkered(uv, parameter);
     } else if (index == 3) {
-        return 0.3;
+        return rand_signal(uv, parameter);
     } else if (index == 4) {
         return corners(uv, parameter);
     } else if (index == 5) {
@@ -114,10 +176,16 @@ float select_pattern(vec2 uv, float select, float parameter) {
         return bricks(uv, parameter);
     } else if (index == 7) {
         return curves(uv, parameter);
+    } else if (index == 8) {
+        return ocean(uv, parameter);
     } else if (index == 11) {
         return interference(uv, parameter);
     } else if (index == 12) {
         return spikes(uv, parameter);
+    } else if (index == 13) {
+        return cross_hatch(uv, parameter);
+    } else if (index == 15) {
+        return spokes(uv, parameter);
     } else {
         return 0.5;
     }
