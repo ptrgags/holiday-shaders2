@@ -11,6 +11,7 @@ class ShaderRenderer {
     }
 
     setup() {
+        MESSENGER.subscribe('resize', (x) => this.resize(x));
         this.render();
     }
 
@@ -26,5 +27,13 @@ class ShaderRenderer {
         // TODO: Will the messenger work? might be a frame behind
         // but as long as it's consistent...
         this.scene_selector.on_new_frame();
+    }
+
+    resize(new_resolution) {
+        this.width = new_resolution.x;
+        this.height = new_resolution.y;
+
+        // Update the renderer
+        this.renderer.setSize(this.width, this.height);
     }
 }

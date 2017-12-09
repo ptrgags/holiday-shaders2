@@ -61,5 +61,6 @@ $(document).ready(() => {
         .then(() => material_manager.setup())
         .then(() => dimension_selector.setup())
         .then(() => renderer.setup())
+        .then(() => res_manager.resize('small'))
         .catch(console.error);
 });

@@ -49,7 +49,7 @@ class UniformManager {
         // Subscribe to events that update uniforms directly
         MESSENGER.subscribe('mouse',
             (x) => this.uniforms.mouse.value = x);
-        MESSENGER.subscribe('resolution_changed',
+        MESSENGER.subscribe('resize',
             (x) => this.uniforms.resolution.value = x);
         MESSENGER.subscribe('scroll',
             (x) => this.uniforms.scroll.value = x);

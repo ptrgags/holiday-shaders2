@@ -8,6 +8,18 @@ class ShaderViewer {
         this.height = 200;
 
         // Subclasses must also define a `camera` field
+
+        MESSENGER.subscribe('resize', (x) => this.resize(x));
+    }
+
+    resize(new_resolution) {
+        // Update the size
+        this.width = new_resolution.x;
+        this.height = new_resolution.y;
+
+        // Update the camera aspect ratio
+        this.camera.aspect = this.width / this.height;
+        this.camera.updateProjectionMatrix();
     }
 }
 
@@ -37,6 +49,13 @@ class ShaderViewer2D extends ShaderViewer {
             FAR
         )
         this.camera.position.z = CAMERA_Z;
+    }
+
+    resize(new_resolution) {
+        super.resize(new_resolution);
+
+        //Also scale the plane to match the new resolution.
+        this.plane.scale.set(this.width, this.height, 1.0);
     }
 
     on_new_frame() {
