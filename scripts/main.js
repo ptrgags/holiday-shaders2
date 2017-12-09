@@ -38,7 +38,7 @@ var frag_shader_list = [
     "spirals.frag",
     "honeycomb.frag",
     "invisible_ink.frag",
-    "bump_map.frag",
+    "normal_map.frag",
     "wheat.frag",
     "nested_voronoi.frag",
     "mandelbrot.frag",

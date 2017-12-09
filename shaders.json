@@ -23,14 +23,45 @@
     ],
     "fragment": [
         {
+            "id": "plaid",
+            "title": "Plaid",
+            "desc": "Plaid patterns"
+        }, {
             "id": "newton",
             "title": "Newton's Method Fractal",
             "desc": "This fractal is created from Newton's Method in the complex plane"
-        },
-        {
-            "id": "plaid",
-            "title": "Plaid Fractal",
-            "desc": "Plaid patterns"
+        }, {
+            "id": "tile",
+            "title": "Triangle Tiles",
+            "desc": "A random, symmetric tiling of triangles"
+        }, {
+            "id": "warp",
+            "title": "Warped Space",
+            "desc": "Take a grid of circles and warp it randomly"
+        }, {
+            "id": "spirals",
+            "title": "Spirals",
+            "desc": "Logarithmic spirals."
+        }, {
+            "id": "normal_map",
+            "title": "Normal Map",
+            "desc":  "Normal maps encode surface detail in a flat texture. They are used for adding artificial detail to 3D models without changing the geometry"
+        }, {
+            "id": "wheat",
+            "title": "Wheat",
+            "desc": "This pattern was loosely inspired by the shape of blades of wheat"
+        }, {
+            "id": "nested_voronoi",
+            "title": "Nested Voronoi Diagram",
+            "desc": "Cells within Cells..."
+        }, {
+            "id": "mandelbrot",
+            "title": "Mandelbrot Set",
+            "desc": "The Mandelbrot Set is a type of fractal"
+        }, {
+            "id": "julia",
+            "title": "Julia Set",
+            "desc": "The Julia set is closely related to the Mandelbrot Set"
         }
     ]
 }
