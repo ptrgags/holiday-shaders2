@@ -63,6 +63,16 @@ float corners(vec2 uv, float scale) {
 }
 
 /**
+ * like ocean/curves but with a triangle wave
+ */
+float zigzag(vec2 uv, float num_curves) {
+    float y = uv.y * num_curves;
+    y += abs(mod(8.0 * uv.x, 2.0) - 1.0);
+    float curve_id = floor(y);
+    return mod(curve_id, 2.0);
+}
+
+/**
  * Make a brick wall texture
  */
 float bricks(vec2 uv, float scale) {
@@ -93,7 +103,28 @@ float ocean(vec2 uv, float num_curves) {
      y += sin(4.0 * TAU * uv.x);
      float curve_id = floor(y);
      return mod(curve_id, 2.0);
- }
+}
+
+/**
+ * Select on/off for each cell in a grid
+ */
+float digital(vec2 uv, float scale) {
+    vec2 cell_coords = floor(uv * scale);
+    float cell_id1 = cell_coords.x + cell_coords.y;
+    float cell_id2 = cell_coords.y * scale + cell_coords.x;
+    float val = noise_lookup(cell_id1 + cell_id2);
+    return step(0.5, val);
+}
+
+/**
+ * Kinda like ocean/curves but with space distorted more
+ */
+float curvilinear(vec2 uv, float spacing) {
+    uv.x *= uv.y;
+    uv.y += smoothstep(0.0, 1.0, uv.x) + sin(3.0 * uv.x);
+    float curve_id = floor(spacing * uv.y);
+    return mod(curve_id, 2.0);
+}
 
 /**
  * Interference between two sine waves, one at (0, 0), one at (1, 1)
@@ -147,6 +178,15 @@ float cross_hatch(vec2 uv, float spacing) {
 }
 
 /**
+ * Make a tiling of circles
+ */
+float circles(vec2 uv, float scale) {
+    vec2 cell_uv = fract(scale * uv);
+    vec2 centered = cell_uv - 0.5;
+    return 1.0 - step(0.4, length(centered));
+}
+
+/**
  * Design on a polar grid
  */
 float spokes(vec2 uv, float scale) {
@@ -171,19 +211,25 @@ float select_pattern(vec2 uv, float select, float parameter) {
     } else if (index == 4) {
         return corners(uv, parameter);
     } else if (index == 5) {
-        return 0.3;
+        return zigzag(uv, parameter);
     } else if (index == 6) {
         return bricks(uv, parameter);
     } else if (index == 7) {
         return curves(uv, parameter);
     } else if (index == 8) {
         return ocean(uv, parameter);
+    } else if (index == 9) {
+        return digital(uv, parameter);
+    } else if (index == 10) {
+        return curvilinear(uv, parameter);
     } else if (index == 11) {
         return interference(uv, parameter);
     } else if (index == 12) {
         return spikes(uv, parameter);
     } else if (index == 13) {
         return cross_hatch(uv, parameter);
+    } else if (index == 14) {
+        return circles(uv, parameter);
     } else if (index == 15) {
         return spokes(uv, parameter);
     } else {
