@@ -16,3 +16,19 @@ vec2 noise_vec2(float offset) {
         noise_lookup(1.0, offset)
     );
 }
+
+vec2 noise_vec2(vec2 offset) {
+    float id = 19.0 * offset.x + offset.y;
+    return noise_vec2(id);
+}
+
+/**
+ * Pick a random rotation
+ */
+mat2 noise_rotation(float offset) {
+    float theta = noise_lookup(offset) * TAU;
+    return mat2(
+        cos(theta), sin(theta),
+        -sin(theta), cos(theta)
+    );
+}

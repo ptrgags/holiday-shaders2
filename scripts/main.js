@@ -14,7 +14,16 @@ var shader_lib = [
     "tiling.frag",
     "signals.frag",
     "polar.frag",
-    "noise.frag"
+    "noise.frag",
+    "display.frag",
+    "trig.frag",
+    "min_max.frag",
+    "complex.frag",
+    "mandelbrot_julia.frag",
+    "hash.frag",
+    "perlin_noise.frag",
+    "simplex_noise.frag",
+    "fractal_brownian_motion.frag"
 ];
 
 var vert_shader_list = [
@@ -26,7 +35,15 @@ var frag_shader_list = [
     "tile.frag",
     "newton.frag",
     "warp.frag",
-    "spirals.frag"
+    "spirals.frag",
+    "honeycomb.frag",
+    "invisible_ink.frag",
+    "bump_map.frag",
+    "wheat.frag",
+    "nested_voronoi.frag",
+    "mandelbrot.frag",
+    "julia.frag",
+    "marble.frag"
 ];
 
 var shader_titles = [
@@ -34,7 +51,15 @@ var shader_titles = [
     "Tiles",
     "Newton's Method Fractal",
     "Warped Space",
-    "Spirals"
+    "Spirals",
+    "Honeycomb",
+    "Invisible Ink",
+    "Bump Map",
+    "Wheat",
+    "Nested Voronoi Diagram",
+    "Mandelbrot Set",
+    "Julia Set Fractal",
+    "Marble"
 ];
 
 var shader_descriptions = [
@@ -42,13 +67,21 @@ var shader_descriptions = [
     "Make some triangle tile patterns",
     "A fractal made with Newton's Method",
     "Let's take space and warp it",
-    "Spirals."
+    "Spirals.",
+    "Glowing honeycomb shape",
+    "This one is inspired by my real-life ink fractals",
+    "Bump maps. [Technical description here]",
+    "Wheat-inspired texture",
+    "Cells within Cells...",
+    "Mandelbrot Set Fractal",
+    "Julia Set Fractal",
+    "Marble designs"
 ];
 
 // TODO: Move these to a class
 
 var current_vert = 0;
-var current_frag = 4;
+var current_frag = 12;
 
 var camera = null;
 var renderer = null;
@@ -121,8 +154,8 @@ var setup_shaders = () => {
 
     // lights, Camera, action! except there's no
     // lights or action yet...
-    var width = 500; //1500; //$('#wrapper').width();
-    var height = 700; //2100; //$('#wrapper').height();
+    var width = 250;//1500; //$('#wrapper').width();
+    var height = 350;//2100; //$('#wrapper').height();
     camera = new THREE.OrthographicCamera(
         -width / 2, width / 2, height/2, -height/2, 1, 1000);
     camera.position.z = 5;

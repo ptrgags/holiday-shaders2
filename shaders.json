@@ -4,7 +4,16 @@
         "noise",
         "polar",
         "signals",
-        "tiling"
+        "tiling",
+        "complex",
+        "display",
+        "fractal_brownian_motion",
+        "hash",
+        "mandelbrot_julia",
+        "min_max",
+        "perlin_noise",
+        "simplex_noise",
+        "trig"
     ],
     "vertex": [
         {
