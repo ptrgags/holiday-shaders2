@@ -1,5 +1,5 @@
-include signals.frag
-include polar.frag
+import signals.frag
+import polar.frag
 -- END IMPORTS --
 
 /**

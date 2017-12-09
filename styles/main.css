@@ -1,22 +1,16 @@
-/*body {
-    /*margin: 0;
-    overflow: hidde
-    color: #FFFFFF !important;
-    background: #000000 !important;
-}
-*/
-
-
-/*
-div#wrapper {
+#screen {
     margin: 0 auto;
-    width: 100%;
-    height: 100%;
-}*/
-
-/*
-canvas#three {
-    width: 100%;
-    height: 100%;
+    border: 3px solid black;
+    box-shadow: 10px 10px 5px #cccccc;
+    border-radius: 10px;
 }
-*/
+
+#rand-freq {
+    width: 10%;
+    display: inline-block;
+}
+
+.vertical-space {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}

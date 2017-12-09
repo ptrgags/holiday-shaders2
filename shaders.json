@@ -1,0 +1,27 @@
+{
+    "libs": [
+        "header",
+        "noise",
+        "polar",
+        "signals",
+        "tiling"
+    ],
+    "vertex": [
+        {
+            "id": "default",
+            "title": "Default"
+        }
+    ],
+    "fragment": [
+        {
+            "id": "newton",
+            "title": "Newton's Method Fractal",
+            "desc": "This fractal is created from Newton's Method in the complex plane"
+        },
+        {
+            "id": "plaid",
+            "title": "Plaid Fractal",
+            "desc": "Plaid patterns"
+        }
+    ]
+}

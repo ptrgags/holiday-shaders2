@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>Three.js Shaders</title>
+
+    <link rel="stylesheet" href="styles/main.css" />
+
+    <!-- Bootstrap & JQuery -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous">
+    </script>
+
+    <!-- Three.js -->
+    <!-- TODO: Move this to vendor/ -->
+    <!--<script src="scripts/three.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/88/three.js"></script>
+
+    <!-- SHA-256 hash function -->
+    <script src="scripts/sha256.js"></script>
+
+    <!-- Helper libraries -->
+    <script src="scripts/Messenger.js"></script>
+    <script src="scripts/NoiseSource.js"></script>
+    <script src="scripts/AnimationManager.js"></script>
+    <script src="scripts/UniformManager.js"></script>
+    <script src="scripts/ShaderLibrary.js"></script>
+    <script src="scripts/ShaderSelector.js"></script>
+    <script src="scripts/MaterialManager.js"></script>
+    <script src="scripts/ShaderViewer.js"></script>
+    <script src="scripts/DimensionsSelector.js"></script>
+    <script src="scripts/ShaderRenderer.js"></script>
+    <script src="scripts/ResolutionManager.js"></script>
+
+    <!-- Main Script -->
+    <script src="scripts/main2.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Title and main buttons to switch shaders/open settings -->
+        <h3 class="text-center">Holiday Shaders 2</h3>
+        <div class="row">
+            <!-- TODO: Use Glyphicons instead -->
+            <div class="col-sm-2">
+                <!--<button id="prev" class="btn btn-primary">Previous</button>-->
+            </div>
+            <div class="col-sm-8 text-center">
+                <button id="prev" class="btn btn-primary">Previous</button>
+                <button class="btn btn-primary"
+                        data-target="#settings"
+                        data-toggle="collapse">
+                    Settings
+                </button>
+                <button id="next" class="btn btn-primary">Next</button>
+            </div>
+            <div class="col-sm-2 text-right">
+                <!--<button id="next" class="btn btn-primary">Next</button>-->
+            </div>
+        </div>
+
+        <!-- Collapsible Settings panel -->
+        <div id="settings" class="collapse well">
+            <h4 class="text-center">Settings</h4>
+            <div id="noise-source">
+                <label>Noise Source</label>
+                <!-- Use a SHA-256 hash as the noise buffer -->
+                <div class="form-group">
+                    <input type="radio" name="noise-source" value="sha_hash"/>
+                    Hash
+                    <input id="hash-input" placeholder="Type any text here!"/>
+                    &rarr;
+                    <code id="hash-output"></code>
+                </div>
+
+                <!-- Use the current time as the noise buffer -->
+                <div class="form-group">
+                    <input type="radio" name="noise-source" value="time_hash"/>
+                    Time
+                    &rarr;
+                    <span id="time"></span>
+                    &rarr;
+                    <code id="time-hash"></code>
+                </div>
+
+                <!-- Use random numbers as the buffer -->
+                <div class="form-group">
+                    <input type="radio" name="noise-source" value="rand_hash"/>
+                    Random
+                    &rarr;
+                    <code id="rand-hash"></code>
+                    <br/>
+                    Frequency: Low
+                    <input id="rand-freq" type="range" min="1" max="10" step="1" value="5" />
+                    High
+                </div>
+
+                <!-- MANUAL OVERRIDE -->
+                <div class="form-group">
+                    <input type="radio" name="noise-source" value="manual_hash"/>
+                    Manual
+                    <div id="manual-controls">[CONTROLS]</div>
+                    &rarr;
+                    <code id="manual-hash"></code>
+                </div>
+            </div>
+            <div id="vertex-settings">
+                <label>Vertex Shader</label>
+                <div class="form-group">
+                    <select id="vertex-shader" class="form-control">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Canvas for displaying the shader -->
+            <div class="col-sm-8 text-center">
+                <!-- Animation controls -->
+                <div id="animation" class="vertical-space">
+                    <label>Animation</label>
+                    <button id="pause" class="btn btn-primary">Pause</button>
+                    <button id="rewind" class="btn btn-primary">Rewind</button>
+                    Elapsed Time (sec): <span id="animation-time"></span>
+                </div>
+                <div id="resolution" class="vertical-space">
+                    <label>Size</label>
+                    <button id="size-avatar" class="btn btn-primary">Avatar</button>
+                    <button id="size-small" class="btn btn-primary">Small</button>
+                    <button id="size-medium" class="btn btn-primary">Medium</button>
+                    <button id="size-large" class="btn btn-primary">Large</button>
+                    <button id="size-fill" class="btn btn-primary">Fill Container</button>
+                </div>
+                <canvas id="screen"></canvas>
+            </div>
+
+            <!-- Info panel for shader -->
+            <div class="col-sm-4">
+                <h4 class="text-center">
+                    <span id="shader-title">[TITLE]</span>
+                    - (<span id="shader-index">[CURRENT]</span>/<span id="num-shaders">[MAX]</span>)
+                </h4>
+                <p id="shader-description">[INFO]</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

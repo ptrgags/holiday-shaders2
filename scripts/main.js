@@ -1,11 +1,14 @@
 'use strict';
 
+// TODO: Move these to a class
 var uniforms = {};
 
 var library = {};
 var vert_shaders = [];
 var frag_shaders = [];
 
+
+// TODO: Move these to shader_index.json ================================
 var shader_lib = [
     "header.frag",
     "tiling.frag",
@@ -41,6 +44,8 @@ var shader_descriptions = [
     "Let's take space and warp it",
     "Spirals."
 ];
+
+// TODO: Move these to a class
 
 var current_vert = 0;
 var current_frag = 4;
