@@ -52,8 +52,8 @@ $(document).ready(() => {
     // let input_manager = new InputManager();
 
     // This class handles changing the size of the canvas and publishing
-    // events.
-    // let res_manager = new ResolutionManager();
+    // events
+    let res_manager = new ResolutionManager();
 
     // Set up the page ====================================================
     shader_lib.load()
