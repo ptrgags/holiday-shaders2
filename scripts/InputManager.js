@@ -43,7 +43,7 @@ class InputManager {
         } else if (KEY_LEFT <= key_code && key_code <= KEY_DOWN) {
             index = key_code - KEY_LEFT + OFFSET_ARROWS;
         } else if (key_code === KEY_SEMICOLON) {
-            index = OFFSET_SPACE;
+            index = OFFSET_SEMICOLON;
         } else {
             index = OFFSET_OTHER;
         }
