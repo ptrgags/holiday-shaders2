@@ -170,7 +170,7 @@ float cross_hatch(vec2 uv, float spacing) {
     //Make thin stripes
     vec2 cell_uv = fract(p * scaled_spacing);
     vec2 cell_coords = floor(p * scaled_spacing);
-    float line_thickness = cell_coords.x / scaled_spacing;
+    float line_thickness = abs(cell_coords.x) / scaled_spacing;
     vec2 thin_lines = 1.0 - step(line_thickness, cell_uv);
 
     // Union the lines but make them dark

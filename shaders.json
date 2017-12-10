@@ -14,7 +14,9 @@
         "perlin_noise",
         "simplex_noise",
         "trig",
-        "patterns"
+        "patterns",
+        "voronoi",
+        "transform"
     ],
     "vertex": [
         {
