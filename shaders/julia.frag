@@ -53,7 +53,10 @@ void main() {
 
     // Translate, rotate, and zoom
     //vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / zoom + center;
-    vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / 300.0;
+    vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / resolution.x;
+
+    //Zoom out a litle
+    uv *= 1.5;
 
     const float num_iterations = 500.0;
     float iterations = mandelbrot_julia(uv, c, num_iterations);
