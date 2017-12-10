@@ -49,7 +49,7 @@ $(document).ready(() => {
 
     // This class sets up callbacks for global mouse/keyboard/other inputs
     // and sends events via the Messenger to whatever else needs it
-    // let input_manager = new InputManager();
+    let input_manager = new InputManager();
 
     // This class handles changing the size of the canvas and publishing
     // events
