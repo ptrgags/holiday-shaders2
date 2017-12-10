@@ -26,7 +26,9 @@ uniform float noise_buffer[NOISE_BUFFER_SIZE];
 // Thesee are useful for defining UV coordinates for 2D shaders
 #define CENTER (resolution / 2.0)
 #define REGULAR_UV (gl_FragCoord.xy / resolution.x)
-#define CENTERED_UV ((gl_FragCoord.xy - CENTER) / resolution.y)
+#define CENTERED_UV ((gl_FragCoord.xy - CENTER) / resolution.x)
+#define REGULAR_MOUSE_UV (mouse / resolution.x)
+#define CENTERED_MOUSE_UV ((mouse - CENTER) / resolution.x)
 
 /**
  * look up a value in the noise buffer. The cycle_offset

@@ -69,6 +69,10 @@
             "id": "voronoi_doodle",
             "title": "Voronoi Doodle",
             "desc": "This pattern is inspired by my fountain pen doodles, which are in turn inspired by the Zentangle Method."
+        }, {
+            "id": "invisible_ink",
+            "title": "Invisible Ink",
+            "desc": "This is a simulation of invisible ink under a black light"
         }
     ]
 }
