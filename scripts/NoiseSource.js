@@ -21,6 +21,7 @@ class NoiseSource {
         this.rand_updates = 0;
         this.rand_freq = 5;
         this.manual_hash = "";
+        this.keyboard_hash = "";
         this.setup();
     }
 
@@ -33,6 +34,7 @@ class NoiseSource {
         this.update_time();
         this.update_rand();
         this.update_manual();
+        this.update_keyboard(Array(32).fill(0.0));
 
         // Set up callbacks so we can respond to the user's actions
         this.setup_listeners();
@@ -69,6 +71,15 @@ class NoiseSource {
 
     }
 
+    update_keyboard(keyboard_buffer) {
+        let bytes = keyboard_buffer
+            .map(NoiseSource.normalized_to_hex)
+            .map(NoiseSource.pad_hex_byte);
+
+        this.keyboard_hash = bytes.join('');
+        $('#keyboard-hash').html(this.keyboard_hash);
+    }
+
     setup_listeners() {
         // When the user types in the hash input, update the hash
         $("#hash-input").keyup(() => this.update_hash());
@@ -78,6 +89,8 @@ class NoiseSource {
         setInterval(() => this.update_time(), UPDATE_INTERVAL);
         setInterval(() => this.update_rand(), UPDATE_INTERVAL);
 
+        // Listen for keyboard input
+        MESSENGER.subscribe('keyboard', (x) => this.update_keyboard(x))
     }
 
     /**
@@ -132,6 +145,18 @@ class NoiseSource {
     }
 
     /**
+     * Take a float value from [0, 1] and convert to a string
+     * on ["00", "ff"]
+     */
+    static normalized_to_hex(norm) {
+        // Scale to [0, 255] and makee sure it is an integer
+        let scaled = Math.floor(norm * MAX_BYTE);
+
+        // Convert to a 2-digit hex string
+        return scaled.toString(RADIX_HEX);
+    }
+
+    /**
      * Take a digit as an int from 0-9 and map it onto a hex digit
      * map it from [0, 9] -> [0, 255] -> ["00", "ff"]
      */
@@ -139,11 +164,7 @@ class NoiseSource {
         // Normalize to [0, 1]
         let normalized = d / MAX_DIGIT;
 
-        // Scale to [0, 255] and makee sure it is an integer
-        let scaled = Math.floor(normalized * MAX_BYTE);
-
-        // Convert to a 2-digit hex string
-        return scaled.toString(RADIX_HEX);
+        return NoiseSource.normalized_to_hex(normalized);
     }
 
     /**

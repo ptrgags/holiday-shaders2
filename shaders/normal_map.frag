@@ -32,11 +32,8 @@ mat2 rhombus() {
 }
 
 void main() {
-    vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.y;
-
-    // Calculate the mouse UV coords.s
-    vec2 fixed_mouse = vec2(mouse.x, resolution.y - mouse.y);
-    vec2 mouse_uv = (fixed_mouse - CENTER) / resolution.y;
+    vec2 uv = REGULAR_UV;
+    vec2 mouse_uv = REGULAR_MOUSE_UV;
 
     // Warp space so it is a tesselation of rhombi
     vec2 warped = rhombus() * uv;
