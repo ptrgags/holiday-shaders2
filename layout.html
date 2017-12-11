@@ -55,11 +55,12 @@
             </div>
             <div class="col-sm-8 text-center">
                 <button id="prev" class="btn btn-primary">Previous</button>
+                <!--
                 <button class="btn btn-primary"
                         data-target="#settings"
                         data-toggle="collapse">
                     Settings
-                </button>
+                </button>-->
                 <button id="next" class="btn btn-primary">Next</button>
             </div>
             <div class="col-sm-2 text-right">
@@ -67,96 +68,101 @@
             </div>
         </div>
 
-        <!-- Collapsible Settings panel -->
-        <div id="settings" class="collapse well">
-            <h4 class="text-center">Settings</h4>
-            <div id="noise-source">
-                <label>Noise Source</label>
-                <!-- Use a SHA-256 hash as the noise buffer -->
-                <div class="form-group">
-                    <input type="radio" name="noise-source" value="sha_hash"/>
-                    Hash
-                    <input id="hash-input" placeholder="Type any text here!"/>
-                    &rarr;
-                    <code id="hash-output"></code>
-                </div>
 
-                <!-- Use the current time as the noise buffer -->
-                <div class="form-group">
-                    <input type="radio" name="noise-source" value="time_hash"/>
-                    Time
-                    &rarr;
-                    <span id="time"></span>
-                    &rarr;
-                    <code id="time-hash"></code>
-                </div>
-
-                <!-- Use random numbers as the buffer -->
-                <div class="form-group">
-                    <input type="radio" name="noise-source" value="rand_hash"/>
-                    Random
-                    &rarr;
-                    <code id="rand-hash"></code>
-                    <br/>
-                    Frequency: Low
-                    <input id="rand-freq" type="range" min="1" max="10" step="1" value="5" />
-                    High
-                </div>
-
-                <!-- Toggle bits with the keyboardd -->
-                <div class="form-group">
-                    <input type="radio" name="noise-source" value="keyboard_hash"/>
-                    Keyboard
-                    &rarr;
-                    <code id="keyboard-hash"></code>
-                </div>
-
-                <!-- MANUAL OVERRIDE -->
-                <div class="form-group">
-                    <input type="radio" name="noise-source" value="manual_hash"/>
-                    Manual
-                    <div id="manual-controls">[CONTROLS]</div>
-                    &rarr;
-                    <code id="manual-hash"></code>
-                </div>
-            </div>
-            <div id="vertex-settings">
-                <label>Vertex Shader</label>
-                <div class="form-group">
-                    <select id="vertex-shader" class="form-control">
-                    </select>
-                </div>
-            </div>
-        </div>
 
         <div class="row">
             <!-- Canvas for displaying the shader -->
-            <div class="col-sm-8 text-center">
-                <!-- Animation controls -->
-                <div id="animation" class="vertical-space">
-                    <label>Animation</label>
-                    <button id="pause" class="btn btn-primary">Pause</button>
-                    <button id="rewind" class="btn btn-primary">Rewind</button>
-                    Elapsed Time (sec): <span id="animation-time"></span>
-                </div>
-                <div id="resolution" class="vertical-space">
-                    <label>Size</label>
-                    <button id="size-avatar" class="btn btn-primary">Avatar</button>
-                    <button id="size-small" class="btn btn-primary">Small</button>
-                    <button id="size-medium" class="btn btn-primary">Medium</button>
-                    <button id="size-large" class="btn btn-primary">Large</button>
-                    <button id="size-fill" class="btn btn-primary">Fill Container</button>
+            <div class="col-sm-7 text-center">
+                <div class="justify-controls">
+                    <!-- Size Controls -->
+                    <div id="resolution" class="vertical-space">
+                        <label>Size</label>
+                        <button id="size-avatar" class="btn btn-primary">Avatar</button>
+                        <button id="size-small" class="btn btn-primary">Small</button>
+                        <button id="size-medium" class="btn btn-primary">Medium</button>
+                        <button id="size-large" class="btn btn-primary">Large</button>
+                        <button id="size-fill" class="btn btn-primary">Fill Container</button>
+                    </div>
+                    <!-- Animation controls -->
+                    <div id="animation" class="vertical-space">
+                        <label>Animation</label>
+                        <button id="pause" class="btn btn-primary">Pause</button>
+                        <button id="rewind" class="btn btn-primary">Rewind</button>
+                        Elapsed Time (sec): <span id="animation-time"></span>
+                    </div>
                 </div>
                 <canvas id="screen"></canvas>
             </div>
 
             <!-- Info panel for shader -->
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <h4 class="text-center">
                     <span id="shader-title">[TITLE]</span>
                     - (<span id="shader-index">[CURRENT]</span>/<span id="num-shaders">[MAX]</span>)
                 </h4>
                 <p id="shader-description">[INFO]</p>
+
+                <!-- Collapsible Settings panel -->
+                <div id="settings" class="well">
+                    <h4 class="text-center">Settings</h4>
+                    <div id="noise-source">
+                        <label>Noise Source</label>
+                        <!-- Use a SHA-256 hash as the noise buffer -->
+                        <div class="form-group">
+                            <input type="radio" name="noise-source" value="sha_hash"/>
+                            Hash
+                            <input id="hash-input" placeholder="Type any text here!"/>
+                            &rarr;
+                            <code id="hash-output"></code>
+                        </div>
+
+                        <!-- Use the current time as the noise buffer -->
+                        <div class="form-group">
+                            <input type="radio" name="noise-source" value="time_hash"/>
+                            Time
+                            &rarr;
+                            <span id="time"></span>
+                            &rarr;
+                            <code id="time-hash"></code>
+                        </div>
+
+                        <!-- Use random numbers as the buffer -->
+                        <div class="form-group">
+                            <input type="radio" name="noise-source" value="rand_hash"/>
+                            Random
+                            &rarr;
+                            <code id="rand-hash"></code>
+                            <br/>
+                            Frequency: Low
+                            <input id="rand-freq" type="range" min="1" max="10" step="1" value="5" />
+                            High
+                        </div>
+
+                        <!-- Toggle bits with the keyboardd -->
+                        <div class="form-group">
+                            <input type="radio" name="noise-source" value="keyboard_hash"/>
+                            Keyboard
+                            &rarr;
+                            <code id="keyboard-hash"></code>
+                        </div>
+
+                        <!-- MANUAL OVERRIDE -->
+                        <div class="form-group">
+                            <input type="radio" name="noise-source" value="manual_hash"/>
+                            Manual
+                            <div id="manual-controls">[CONTROLS]</div>
+                            &rarr;
+                            <code id="manual-hash"></code>
+                        </div>
+                    </div>
+                    <div id="vertex-settings">
+                        <label>Vertex Shader</label>
+                        <div class="form-group">
+                            <select id="vertex-shader" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
