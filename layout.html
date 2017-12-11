@@ -8,10 +8,7 @@
     <link rel="stylesheet" href="styles/main.css" />
 
     <!-- Bootstrap & JQuery -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -47,28 +44,7 @@
 <body>
     <div class="container-fluid">
         <!-- Title and main buttons to switch shaders/open settings -->
-        <h3 class="text-center">Holiday Shaders 2</h3>
-        <div class="row">
-            <!-- TODO: Use Glyphicons instead -->
-            <div class="col-sm-2">
-                <!--<button id="prev" class="btn btn-primary">Previous</button>-->
-            </div>
-            <div class="col-sm-8 text-center">
-                <button id="prev" class="btn btn-primary">Previous</button>
-                <!--
-                <button class="btn btn-primary"
-                        data-target="#settings"
-                        data-toggle="collapse">
-                    Settings
-                </button>-->
-                <button id="next" class="btn btn-primary">Next</button>
-            </div>
-            <div class="col-sm-2 text-right">
-                <!--<button id="next" class="btn btn-primary">Next</button>-->
-            </div>
-        </div>
-
-
+        <h2 class="text-center">Holiday Shaders 2</h2>
 
         <div class="row">
             <!-- Canvas for displaying the shader -->
@@ -109,23 +85,29 @@
             <!-- Info panel for shader -->
             <div class="col-sm-5">
                 <h4 class="text-center">
-                    <span id="shader-title">[TITLE]</span>
-                    - (<span id="shader-index">[CURRENT]</span>/<span id="num-shaders">[MAX]</span>)
+                    <!--<button id="prev" class="btn btn-primary">Previous</button>-->
+                    <a id="prev"><span class="glyphicon glyphicon-menu-left"></span></a>
+
+                    <span class="wide">
+                        <span id="shader-title">[TITLE]</span>
+                        - (<span id="shader-index">[CURRENT]</span>/<span id="num-shaders">[MAX]</span>)
+                    </span>
+                    <a id="next"><span class="glyphicon glyphicon-menu-right"></span></a>
                 </h4>
                 <p id="shader-description">[INFO]</p>
 
                 <!-- Collapsible Settings panel -->
                 <div id="settings" class="well">
-                    <h4 class="text-center">Settings</h4>
+                    <h3 class="text-center">Settings</h3>
                     <div id="noise-source">
                         <label>Noise Source</label>
                         <!-- Use a SHA-256 hash as the noise buffer -->
-                        <div class="form-group">
+                        <div class="form-inline">
                             <input type="radio" name="noise-source" value="sha_hash"/>
                             Hash
-                            <input id="hash-input" placeholder="Type any text here!"/>
+                            <input id="hash-input" placeholder="Type any text here!" class="form-control"/>
                             &rarr;
-                            <code id="hash-output"></code>
+                            <code class="hash" id="hash-output"></code>
                         </div>
 
                         <!-- Use the current time as the noise buffer -->
@@ -135,7 +117,7 @@
                             &rarr;
                             <span id="time"></span>
                             &rarr;
-                            <code id="time-hash"></code>
+                            <code class="hash" id="time-hash"></code>
                         </div>
 
                         <!-- Use random numbers as the buffer -->
@@ -143,7 +125,7 @@
                             <input type="radio" name="noise-source" value="rand_hash"/>
                             Random
                             &rarr;
-                            <code id="rand-hash"></code>
+                            <code class="hash" id="rand-hash"></code>
                             <br/>
                             Frequency: Low
                             <input id="rand-freq" type="range" min="1" max="10" step="1" value="5" />
@@ -155,7 +137,7 @@
                             <input type="radio" name="noise-source" value="keyboard_hash"/>
                             Keyboard
                             &rarr;
-                            <code id="keyboard-hash"></code>
+                            <code class="hash" id="keyboard-hash"></code>
                         </div>
 
                         <!-- MANUAL OVERRIDE -->
@@ -164,7 +146,7 @@
                             Manual
                             <div id="manual-controls">[CONTROLS]</div>
                             &rarr;
-                            <code id="manual-hash"></code>
+                            <code class="hash" id="manual-hash"></code>
                         </div>
                     </div>
                     <div id="vertex-settings">

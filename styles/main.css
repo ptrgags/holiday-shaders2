@@ -1,7 +1,6 @@
 #screen {
     margin: 0 auto;
-    border: 3px solid black;
-    box-shadow: 10px 10px 5px #cccccc;
+    border: 6px solid #303030;
     border-radius: 10px;
 }
 
@@ -11,12 +10,39 @@
 }
 
 .vertical-space {
-    margin-top: 4px;
-    margin-bottom: 4px;
+    margin-bottom: 16px;
 }
 
 .justify-controls {
     text-align: left;
     width: 60%;
     margin: 0 auto;
+}
+
+.wide {
+    display: inline-block;
+    width: 60%;
+}
+
+.glyphicon {
+    font-size: 17pt;
+}
+
+.hash {
+    background-color: #222222;
+    color: #14cea3;
+}
+
+.btn.btn-primary {
+    padding: 4px 8px;
+    margin-right: 10px;
+}
+
+input.form-control, select.form-control {
+    padding: 4px 8px;
+    height: 35px;
+}
+
+div.well {
+    padding-top: 0px;
 }
