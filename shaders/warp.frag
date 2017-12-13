@@ -30,8 +30,10 @@ vec2 homogeneous_mat_mult(mat3 t, vec2 v) {
 
 
 void main() {
-    vec2 uv = gl_FragCoord.xy / resolution;
-    vec2 centered_uv = (gl_FragCoord.xy - CENTER) / resolution;
+    //vec2 uv = gl_FragCoord.xy / resolution;
+    //vec2 centered_uv = (gl_FragCoord.xy - CENTER) / resolution;
+    vec2 uv = REGULAR_UV;
+    vec2 centered_uv = CENTERED_UV;
 
     // Randomly warp space.
     vec2 warped = homogeneous_mat_mult(noise_matrix(0.0), centered_uv);

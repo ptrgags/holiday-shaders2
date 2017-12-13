@@ -8,7 +8,8 @@ void main() {
     //vec2 uv = gl_FragCoord.xy / resolution;
 
     // Centered UV coordinates
-    vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x;
+    //vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x;
+    vec2 uv = CENTERED_UV;
 
     // Mirror the UV space
     vec2 mirrored_uv = abs(uv);
