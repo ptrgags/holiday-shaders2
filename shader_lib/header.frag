@@ -23,10 +23,31 @@ uniform float noise_buffer[NOISE_BUFFER_SIZE];
 #define PI 3.1415
 #define TAU (2.0 * PI)
 
-// Thesee are useful for defining UV coordinates for 2D shaders
+// These are useful for defining UV coordinates for 2D shaders
+/*
 #define CENTER (resolution / 2.0)
 #define REGULAR_UV (gl_FragCoord.xy / resolution.x)
 #define CENTERED_UV ((gl_FragCoord.xy - CENTER) / resolution.x)
+#define REGULAR_MOUSE_UV (mouse / resolution.x)
+#define CENTERED_MOUSE_UV ((mouse - CENTER) / resolution.x)
+
+/**
+ * Fix the aspect ratio, however use units of x instead of y
+ * since these shaders have a portrait orientation
+ */
+vec2 fix_aspect(vec2 uv) {
+    float aspect_ratio = resolution.x / resolution.y;
+    // Convert to UV in units of x instead of the usual units of y.
+    uv.y /= aspect_ratio;
+    return uv;
+}
+
+// UV coordinates must be passed via the vertex shader
+varying vec2 v_uv;
+
+#define CENTER 0.5
+#define REGULAR_UV fix_aspect(v_uv)
+#define CENTERED_UV fix_aspect(v_uv - CENTER)
 #define REGULAR_MOUSE_UV (mouse / resolution.x)
 #define CENTERED_MOUSE_UV ((mouse - CENTER) / resolution.x)
 

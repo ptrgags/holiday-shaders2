@@ -1,3 +1,4 @@
+import display.frag
 -- END IMPORTS --
 
 // Rotate around the origin angle radians. Remember that
@@ -35,7 +36,7 @@ void main() {
 
 
     // Define UV Coordinates starting from the center
-    vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x;
+    vec2 uv = CENTERED_UV;
 
     // Tilt the coordinate space
     uv = rotate2d(tilt_angle) * uv;
@@ -59,5 +60,6 @@ void main() {
     }
 
     // Take the union of the horizontal and vertical stripes.
-    gl_FragColor = max(x_color * x_intensity, y_color * y_intensity);
+    vec4 plaid = max(x_color * x_intensity, y_color * y_intensity);
+    gl_FragColor = display(plaid);
 }
