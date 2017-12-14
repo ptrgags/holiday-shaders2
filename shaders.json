@@ -28,6 +28,9 @@
         }, {
             "id": "twist",
             "title": "Twist"
+        }, {
+            "id": "boxy",
+            "title": "Boxy"
         }
     ],
     "fragment": [
