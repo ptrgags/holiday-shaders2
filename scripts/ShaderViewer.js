@@ -70,12 +70,14 @@ class ShaderViewer2D extends ShaderViewer {
 
 
 class ShaderViewer3D extends ShaderViewer {
+    constructor(material_manager, model_selector) {
+        super(material_manager);
+        this.model_selector = model_selector;
+    }
+
     setup() {
-        const RADIAL_SEGMENTS = 16;
-        const TUBULAR_SEGMENTS = 100;
-        let torus_geom = new THREE.TorusGeometry(1.0, 0.4, RADIAL_SEGMENTS, TUBULAR_SEGMENTS);
-        this.torus = new THREE.Mesh(torus_geom, this.material.material);
-        this.scene.add(this.torus);
+        // Set up the 3D models.
+        this.model_selector.setup(this.material.material, this.scene);
 
         // Set up the camera
         const NEAR = 1;
@@ -101,6 +103,6 @@ class ShaderViewer3D extends ShaderViewer {
 
         // TODO: Add settings for 3D rotation!
         const ROTATION = 0.005;
-        this.torus.rotateOnAxis(axis, ROTATION);
+        this.model_selector.model.rotateOnAxis(axis, ROTATION);
     }
 }

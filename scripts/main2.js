@@ -36,10 +36,10 @@ $(document).ready(() => {
     let viewer_2d = new ShaderViewer2D(material_manager);
 
     // This handles all 3D-only settings on the page
-    // let settings_3d = new Settings3D();
+    let models = new ModelSelector();
 
     // This manages the 3D scene.
-     let viewer_3d = new ShaderViewer3D(material_manager/*, settings_3d*/);
+     let viewer_3d = new ShaderViewer3D(material_manager, models);
 
     // This class selects between 2D/3D
     let dimension_selector = new DimensionsSelector(viewer_2d, viewer_3d);
