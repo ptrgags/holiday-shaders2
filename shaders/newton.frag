@@ -35,7 +35,11 @@ vec2 diff_f(vec2 x) {
 void main() {
     vec2 centered = gl_FragCoord.xy - CENTER;
 
-    vec2 z = centered;
+    vec2 uv = CENTERED_UV;
+
+    // TODO: handle this in a nicer fashion
+    // TODO: Move most of this to a forward-declared function
+    vec2 z = v_uv * resolution - resolution / 2.0;
     const int MAX = 128;
     int iteration = MAX;
     float TOLERANCE = 0.0001;
@@ -73,7 +77,6 @@ void main() {
         1.0
     );
 
-    vec2 uv = centered / resolution;
     vec2 polar = rect_to_polar(uv);
     float color_change = smoothstep(0.1, 0.5, polar.x);
 

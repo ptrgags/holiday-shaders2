@@ -1,11 +1,18 @@
+const MODE_2D = 0;
+const MODE_3D = 1;
+
 class DimensionsSelector {
-    constructor(viewer_2d) {
-        this.viewers = [viewer_2d];
-        this.viewer_index = 0;
+    constructor(viewer_2d, viewer_3d) {
+        this.viewers = [viewer_2d, viewer_3d];
+        this.viewer_index = MODE_2D;
     }
 
     setup() {
         this.viewers.map((x) => x.setup());
+
+        // Change the number of dimensions with the 2D and 3D buttons
+        $("#mode-2d").click(() => this.viewer_index = MODE_2D);
+        $("#mode-3d").click(() => this.viewer_index = MODE_3D);
     }
 
     get current_viewer() {

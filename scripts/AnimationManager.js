@@ -53,6 +53,9 @@ class AnimationManager {
      */
     rewind_animation() {
         this.elapsed_time = 0.0;
+        
+        // Update the output
+        $('#animation-time').html(this.elapsed_time.toFixed(3));
     }
 
     /**

@@ -16,10 +16,10 @@ class ShaderViewer {
         // Update the size
         this.width = new_resolution.x;
         this.height = new_resolution.y;
+    }
 
-        // Update the camera aspect ratio
-        this.camera.aspect = this.width / this.height;
-        this.camera.updateProjectionMatrix();
+    on_new_frame() {
+        this.material.on_new_frame();
     }
 }
 
@@ -54,18 +54,56 @@ class ShaderViewer2D extends ShaderViewer {
     resize(new_resolution) {
         super.resize(new_resolution);
 
+        // Update the camera settings
+        this.camera.aspect = this.width / this.height;
+        this.camera.left = -this.width / 2;
+        this.camera.right = this.width / 2;
+        this.camera.top = this.height / 2;
+        this.camera.bottom = -this.height / 2;
+        this.camera.updateProjectionMatrix();
+
         //Also scale the plane to match the new resolution.
         this.plane.scale.set(this.width, this.height, 1.0);
     }
 
+}
+
+
+class ShaderViewer3D extends ShaderViewer {
+    constructor(material_manager, model_selector) {
+        super(material_manager);
+        this.model_selector = model_selector;
+    }
+
+    setup() {
+        // Set up the 3D models.
+        this.model_selector.setup(this.material.material, this.scene);
+
+        // Set up the camera
+        const NEAR = 1;
+        const FAR = 1000;
+        const FOV = 45;
+        this.camera = new THREE.PerspectiveCamera(
+            FOV, this.width / this.height, NEAR, FAR);
+        this.camera.position.set(0, 0, -5);
+        this.camera.lookAt(0, 0, 0)
+    }
+
+    resize(new_resolution) {
+        super.resize(new_resolution);
+
+        // Update the camera settings
+        this.camera.aspect = this.width / this.height;
+        this.camera.updateProjectionMatrix();
+    }
+
     on_new_frame() {
-        this.material.on_new_frame();
+        super.on_new_frame();
+        let axis = new THREE.Vector3(0.0, 1.0, 0.0);
+
+        const ROTATION = 0.005;
+        if (this.model_selector.rotate) {
+            this.model_selector.model.rotateOnAxis(axis, ROTATION);
+        }
     }
 }
-
-
-/*
-class ShaderViewer3D extends ShaderViewer {
-
-}
-*/

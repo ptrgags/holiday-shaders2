@@ -22,6 +22,15 @@
         {
             "id": "default",
             "title": "Default"
+        }, {
+            "id": "wave",
+            "title": "Longitudinal Wave"
+        }, {
+            "id": "twist",
+            "title": "Twist"
+        }, {
+            "id": "boxy",
+            "title": "Boxy"
         }
     ],
     "fragment": [
