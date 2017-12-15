@@ -101,8 +101,9 @@ class ShaderViewer3D extends ShaderViewer {
         super.on_new_frame();
         let axis = new THREE.Vector3(0.0, 1.0, 0.0);
 
-        // TODO: Add settings for 3D rotation!
         const ROTATION = 0.005;
-        this.model_selector.model.rotateOnAxis(axis, ROTATION);
+        if (this.model_selector.rotate) {
+            this.model_selector.model.rotateOnAxis(axis, ROTATION);
+        }
     }
 }

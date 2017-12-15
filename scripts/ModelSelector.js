@@ -17,6 +17,7 @@ const GEOMETRIES = new Map([
 class ModelSelector {
     constructor() {
         this.models = new Map();
+        this.rotate = true;
     }
 
     setup(material, scene) {
@@ -33,6 +34,11 @@ class ModelSelector {
         this.show_model('Cube');
 
         $("#model-select").change(() => this.update_model());
+        $("#rotate-model").change(() => this.toggle_rotate());
+    }
+
+    toggle_rotate() {
+        this.rotate = !this.rotate;
     }
 
     make_models(material, scene) {
