@@ -16,7 +16,8 @@
         "trig",
         "patterns",
         "voronoi",
-        "transform"
+        "transform",
+        "newtons_method"
     ],
     "vertex": [
         {

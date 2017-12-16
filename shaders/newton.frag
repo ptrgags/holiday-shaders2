@@ -1,6 +1,9 @@
 import signals.frag
 import polar.frag
 import complex.frag
+import newtons_method.frag
+import noise.frag
+import display.frag
 -- END IMPORTS --
 
 /**
@@ -38,49 +41,29 @@ void main() {
     vec2 uv = CENTERED_UV;
 
     // TODO: handle this in a nicer fashion
-    // TODO: Move most of this to a forward-declared function
-    vec2 z = v_uv * resolution - resolution / 2.0;
-    const int MAX = 128;
-    int iteration = MAX;
-    float TOLERANCE = 0.0001;
-    for (int i = 0; i < MAX; i++) {
-        // Perform one round of Newton's Method
-        vec2 new_z = z - complex_div(f(z), diff_f(z));
-        if (distance(new_z, z) < TOLERANCE) {
-            iteration = i;
-            break;
-        }
-        z = new_z;
-    }
+    //vec2 z = v_uv * resolution - resolution / 2.0;
+    //z /= 8.0;
+    vec2 z = uv;
 
-    /*
-    float fraction = float(iteration) / float(MAX);
-    //Make the darks darker and the mids brighter
-    float adjusted_contrast = smoothstep(0.08, 0.3, fraction);
+    NewtonFractal fractal = newtons_method(z);
 
-    gl_FragColor = adjusted_contrast * vec4(1.0, 0.5, 1.0, 1.0);
-    */
+    float angle = rect_to_polar(fractal.last_vector).y;
+    // simple cos(angle) * iteration_mask looks cool too
+    float cosine_mask = unsigned_signal(cos(TAU * angle - 2.0 * time));
 
-    float mask = noise_lookup(float(iteration), 0.0);
 
-    vec4 color1 = vec4(
-        noise_lookup(0.0, 0.0),
-        noise_lookup(1.0, 0.0),
-        noise_lookup(2.0, 0.0),
-        1.0
-    );
 
-    vec4 color2 = vec4(
-        noise_lookup(3.0, 0.0),
-        noise_lookup(4.0, 0.0),
-        noise_lookup(5.0, 0.0),
-        1.0
-    );
+    float mask = noise_lookup(fractal.iterations);
+    vec4 band_color = noise_color(fractal.iterations + 1.0);
+
+    vec4 color1 = noise_color(0.0);
+    vec4 color2 = noise_color(3.0);
 
     vec2 polar = rect_to_polar(uv);
     float color_change = smoothstep(0.1, 0.5, polar.x);
 
     vec4 color = mix(color1, color2, color_change);
 
-    gl_FragColor = mask * color;
+
+    gl_FragColor = display(cosine_mask * mask * band_color);
 }
