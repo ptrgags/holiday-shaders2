@@ -4,6 +4,8 @@
 struct NewtonFractal {
     // Number of iterations it takes to reach the root.
     float iterations;
+    // iterations / max iterations
+    float iteration_uv;
     // vector between the next to last -> last points in
     // the iteration. This can be used for cool cosine coloring
     vec2 last_vector;
@@ -49,5 +51,6 @@ NewtonFractal newtons_method(vec2 z) {
 
     // Calculate the angle between the last two points for cosine shading
     result.last_vector = current_z - prev_z;
+    result.iteration_uv = result.iterations / float(MAX_ITERATIONS);
     return result;
 }

@@ -17,7 +17,8 @@
         "patterns",
         "voronoi",
         "transform",
-        "newtons_method"
+        "newtons_method",
+        "color"
     ],
     "vertex": [
         {
