@@ -88,6 +88,14 @@
             "id": "googly",
             "title": "Googly Eyes",
             "desc": "You're being watched..."
+        }, {
+            "id": "liquid_metal",
+            "title": "Liquid Metal",
+            "desc": "An experiment with Fractal Brownian Motion"
+        }, {
+            "id": "mandala",
+            "title": "Mandala",
+            "desc": "Patterns in polar coordinates"
         }
     ]
 }
