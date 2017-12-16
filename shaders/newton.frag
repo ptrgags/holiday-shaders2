@@ -11,6 +11,7 @@ import display.frag
  *
  * f(x) = x^3 - 1
  */
+ /*
 vec2 f(vec2 x) {
     // x^2
     vec2 result = complex_mult(x, x);
@@ -21,17 +22,50 @@ vec2 f(vec2 x) {
     result.x -= 1.0;
     return result;
 }
+*/
 
 /**
  * Derivative of f.
  *
  * df/dx(x) = 3x^2
  */
+ /*
 vec2 diff_f(vec2 x) {
     // x^2
     vec2 result = complex_mult(x, x);
     // 3x^2
     result *= 3.0;
+    return result;
+}
+*/
+
+//
+float time_signal() {
+    return smoothstep(0.25, 0.75, unsigned_signal(cos(0.7 * time)));
+}
+
+vec2 f(vec2 x) {
+    // x^2
+    vec2 pow2 = complex_mult(x, x);
+    // x^4
+    vec2 pow4 = complex_mult(pow2, pow2);
+
+    vec2 mixed = mix(pow4, -pow2, time_signal());
+
+    // x^4 - x^2 - 1
+    vec2 result = mixed - vec2(1.0, 0);
+    return result;
+}
+
+vec2 diff_f(vec2 x) {
+    // x^2
+    vec2 pow2 = complex_mult(x, x);
+    vec2 pow3 = complex_mult(pow2, x);
+
+    vec2 mixed = mix(4.0 * pow3, -2.0 * x, time_signal());
+
+    // 4x^3 - 2x
+    vec2 result = mixed;
     return result;
 }
 
@@ -41,9 +75,9 @@ void main() {
     vec2 uv = CENTERED_UV;
 
     // TODO: handle this in a nicer fashion
-    //vec2 z = v_uv * resolution - resolution / 2.0;
+    vec2 z = v_uv * resolution - resolution / 2.0;
     //z /= 8.0;
-    vec2 z = uv;
+    //vec2 z = uv;
 
     NewtonFractal fractal = newtons_method(z);
 
