@@ -82,6 +82,10 @@
             "id": "invisible_ink",
             "title": "Invisible Ink",
             "desc": "This is a simulation of invisible ink under a black light"
+        }, {
+            "id": "googly",
+            "title": "Googly Eyes",
+            "desc": "You're being watched..."
         }
     ]
 }
