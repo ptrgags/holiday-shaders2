@@ -83,7 +83,7 @@ void main() {
     // simple cos(angle) * iteration_mask looks cool too
     float cosine_mask = unsigned_signal(cos(TAU * angle - 2.0 * time));
 
-    vec3 a = 0.5 * noise_vec3(0.0);
+    vec3 a = noise_vec3(0.0);
     vec3 b = noise_vec3(3.0);
     vec3 c = noise_vec3(6.0);
     vec3 d = noise_vec3(9.0);
