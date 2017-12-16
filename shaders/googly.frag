@@ -95,7 +95,7 @@ void main() {
     const vec2 LEFT_EYE = vec2(0.3, 0.65);
     const vec2 RIGHT_EYE = vec2(0.7, 0.65);
 
-    vec4 COLOR_BG = vec4(0.1, 0.0, 0.2, 1.0);
+    vec4 COLOR_BG = vec4(0.2, 0.0, 0.5, 1.0);
 
     // ====================================================================
 
