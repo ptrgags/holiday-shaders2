@@ -9,6 +9,8 @@ struct NewtonFractal {
     // vector between the next to last -> last points in
     // the iteration. This can be used for cool cosine coloring
     vec2 last_vector;
+    // Position of the root
+    vec2 root;
 };
 
 // The shader implementation must define a function and its derivative
@@ -19,7 +21,7 @@ vec2 diff_f(vec2 x);
  * Perform the Newton's Method iteration on functions
  */
 NewtonFractal newtons_method(vec2 z) {
-    const int MAX_ITERATIONS = 512;
+    const int MAX_ITERATIONS = 256;
     // This tolerance is used to figure out the end
     const float TOLERANCE = 0.001;
 
@@ -52,5 +54,14 @@ NewtonFractal newtons_method(vec2 z) {
     // Calculate the angle between the last two points for cosine shading
     result.last_vector = current_z - prev_z;
     result.iteration_uv = result.iterations / float(MAX_ITERATIONS);
+    result.root = current_z;
     return result;
+}
+
+/**
+ * Zoom in and out over time. This needs to be changed
+ * whenever the # iterations changes
+ */
+float animated_zoom() {
+    return pow(0.5, 8.0 * sin(0.2 * time));
 }

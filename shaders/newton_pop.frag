@@ -29,8 +29,7 @@ void main() {
     vec2 uv = CENTERED_UV;
 
     vec2 z = v_uv * resolution - resolution / 2.0;
-    // Animated zoom
-    z *= pow(0.5, 10.0 * sin(0.2 * time));
+    z *= animated_zoom();
 
     NewtonFractal fractal = newtons_method(z);
 
