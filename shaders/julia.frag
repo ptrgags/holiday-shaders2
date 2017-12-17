@@ -37,9 +37,18 @@ vec2 pick_c(float selection) {
     return vec2(0.0);
 }
 
+vec2 f(vec2 z, vec2 c) {
+    return complex_mult(z, z) + c;
+}
+
+float escape_radius_squared() {
+    return 4.0;
+}
+
 void main() {
     mat2 rotation = noise_rotation(1.0);
 
+    // Move in a convoluted wave path in the complex plane
     vec2 wave = noise_lookup(1.0) * sin(0.5 * noise_vec2(2.0) * time - noise_vec2(4.0));
     wave += 0.5 * noise_lookup(5.0) * sin(noise_vec2(6.0) * time - noise_vec2(8.0));
 
@@ -53,13 +62,14 @@ void main() {
 
     // Translate, rotate, and zoom
     //vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / zoom + center;
-    vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / resolution.x;
+    vec2 uv = rotation * CENTERED_UV;
 
     //Zoom out a litle
-    uv *= 1.5;
+    uv *= 2.0;
 
-    const float num_iterations = 500.0;
-    float iterations = mandelbrot_julia(uv, c, num_iterations);
+    // Calculate the julia set
+    MJFractal fractal = mandelbrot_julia(uv, c, 500.0);
+    float iterations = fractal.iterations;
 
     vec4 hash_coloring = noise_lookup(iterations) *  color;
     vec4 iteration_coloring = 2.0 * iterations / MAX_ITERATIONS * color2;
