@@ -118,11 +118,11 @@
             "desc": "This colors each region a flat color for a pop-art effect"
         }, {
             "id": "mandelbrot_cosine",
-            "title": "Mandelbrot Fractal 2",
+            "title": "Mandelbrot Metal",
             "desc": "This is the mandelbrot with cosine coloring"
         }, {
             "id": "mandelbrot_cycle",
-            "title": "Mandelbrot Fractal 3",
+            "title": "Mandelbrot Cycled Colors",
             "desc": "This is the Mandelbrot set except the colors are animated"
         }
     ]

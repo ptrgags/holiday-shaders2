@@ -70,8 +70,5 @@ void main() {
 
     float hash_mask = noise_lookup(fractal.iterations - 2.0 * time);
 
-
-    //vec4 iteration_coloring = 2.0 * iterations / MAX_ITERATIONS * color2;
-
     gl_FragColor = display(hash_mask * cosine_mask * color);
 }
