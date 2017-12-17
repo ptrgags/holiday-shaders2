@@ -100,6 +100,10 @@
             "id": "shell",
             "title": "Shell",
             "desc": "the regions of this one remind me of a nautilus shell except circular instead of a spiral"
+        }, {
+            "id": "kaleidoscope",
+            "title": "Kaleidoscope",
+            "desc": "Mirrors everywhere."
         }
     ]
 }

@@ -1,4 +1,10 @@
-// Inverse warp to make two triangles
+import tiling.frag
+import noise.frag
+import color.frag
+import display.frag
+-- END IMPORTS --
+// Inverse warp to make rhombi which can be easily
+// turned into 2 simplices
 mat2 simplex() {
     return mat2(
         1.0, 0.0,
@@ -16,51 +22,53 @@ vec2 cycle_coords(float x) {
 }
 
 void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    st.x *= u_resolution.x/u_resolution.y;
+    vec2 uv = REGULAR_UV;
 
+    vec2 mouse_uv = REGULAR_MOUSE_UV;
 
-    vec2 mouse_uv = u_mouse / u_resolution.xy;
-
-    // Skew space to the right
-    st = simplex() * st;
+    // Skew space into rhombi
+    uv = simplex() * uv;
 
     //  Tile space
-    st *= 6.0;
-    vec2 uv = fract(st);
-    vec2 id = floor(st);
+    Tiling2D cells = tile_2d(uv, vec2(6.0));
 
     // Split into two triangles, one mirrored over 1.0 - x
-    float is_flipped = float(uv.y > 1.0 - uv.x);
-    vec2 flipped = mix(uv, (1.0 - uv).yx, is_flipped);
+    float is_flipped = float(cells.uv.y > 1.0 - cells.uv.x);
+    vec2 flipped = mix(cells.uv, (1.0 - cells.uv).yx, is_flipped);
 
     // barycentric coords
     vec3 bary = vec3(flipped, 1.0 - flipped.x - flipped.y);
 
     // Calculate how many clockwise cycles of the triangle vertices we need to make.
-    float num_cycles = id.x - id.y;
+    float num_cycles = cells.coords.x - cells.coords.y;
     // There are only three possible arrangements of triangle vertices
     num_cycles = mod(num_cycles, 3.0);
 
-    vec2 a = cycle_coords(num_cycles);
-    vec2 b = cycle_coords(num_cycles + 1.0);
-    vec2 c = cycle_coords(num_cycles + 2.0);
-    vec2 mirrored = bary.x * a + bary.y * b + bary.z * c;
+    // Set up correct mirroring
+    vec2 corner_a = cycle_coords(num_cycles);
+    vec2 corner_b = cycle_coords(num_cycles + 1.0);
+    vec2 corner_c = cycle_coords(num_cycles + 2.0);
+    vec2 mirrored = bary.x * corner_a + bary.y * corner_b + bary.z * corner_c;
+
+    // Pick three random colors in the same palette
+    vec3 a = noise_vec3(21.0);
+    vec3 b = noise_vec3(5.0);
+    vec3 c = noise_vec3(20.0);
+    vec3 d = noise_vec3(18.0);
+    vec3 color1 = cosine_palette(noise_lookup(1.0), a, b, c, d);
+    vec3 color2 = cosine_palette(noise_lookup(17.0), a, b, c, d);
+    vec3 color3 = cosine_palette(noise_lookup(2.0), a, b, c, d);
 
     float dist = distance(mouse_uv - 0.5, mirrored);
-    float wave1 = cos(30.0 * dist - u_time);
+    float wave1 = cos(30.0 * dist - time);
     dist = distance(mouse_uv - 0.25, mirrored);
-    float wave2 = sin(15.0 * dist - 2.0 * u_time);
+    float wave2 = sin(15.0 * dist - 2.0 * time);
     dist = distance(mouse_uv - 0.75, mirrored);
-    float wave3 = sin(10.0 * dist - 3.0 * u_time);
+    float wave3 = sin(10.0 * dist - 3.0 * time);
 
-    /*
-    bary = vec3(mirrored, 1.0 - mirrored.x -mirrored.y);
+    vec3 image = color1 * wave1;
+    image = mix(image, color2 * wave2, 0.5);
+    image = mix(image, color3 * wave3, 0.5);
 
-    float max_component = max(bary.x, bary.y);
-
-    vec4 color = vec4(bary, 1.0);
-    */
-
-    gl_FragColor = vec4(wave1, wave2, wave3, 1.0);
+    gl_FragColor = display(image);
 }
