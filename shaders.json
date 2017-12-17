@@ -41,8 +41,8 @@
             "title": "Plaid",
             "desc": "Plaid patterns"
         }, {
-            "id": "newton",
-            "title": "Newton's Method Fractal",
+            "id": "newton_cosine",
+            "title": "Newton Fractal 1",
             "desc": "This fractal is created from Newton's Method in the complex plane"
         }, {
             "id": "tile",
@@ -69,8 +69,8 @@
             "title": "Nested Voronoi Diagram",
             "desc": "Cells within Cells..."
         }, {
-            "id": "mandelbrot",
-            "title": "Mandelbrot Set",
+            "id": "mandelbrot_grow",
+            "title": "Mandelbrot Set 1",
             "desc": "The Mandelbrot Set is a type of fractal"
         }, {
             "id": "julia",
@@ -104,6 +104,26 @@
             "id": "kaleidoscope",
             "title": "Kaleidoscope",
             "desc": "Mirrors everywhere."
+        }, {
+            "id": "newton_traditional",
+            "title": "Newton Fractal 2",
+            "desc": "This uses the traditional coloring"
+        }, {
+            "id": "newton_iteration",
+            "title": "Newton Fractal 3",
+            "desc": "This uses my original idea for coloring"
+        }, {
+            "id": "newton_pop",
+            "title": "Newton Fractal 4",
+            "desc": "This colors each region a flat color for a pop-art effect"
+        }, {
+            "id": "mandelbrot_cosine",
+            "title": "Mandelbrot Fractal 2",
+            "desc": "This is the mandelbrot with cosine coloring"
+        }, {
+            "id": "mandelbrot_cycle",
+            "title": "Mandelbrot Fractal 3",
+            "desc": "This is the Mandelbrot set except the colors are animated"
         }
     ]
 }
