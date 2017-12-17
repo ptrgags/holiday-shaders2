@@ -58,7 +58,7 @@ void main() {
 
     // Add depth from a blank slate
     // Thanks to DeviantArt user PonceIndustries for the idea!
-    float num_iterations = mod(10.0 * time, 500.0);
+    float num_iterations = mod(20.0 * time, 500.0);
 
     MJFractal fractal = mandelbrot_julia(vec2(0.0), uv, num_iterations);
 
