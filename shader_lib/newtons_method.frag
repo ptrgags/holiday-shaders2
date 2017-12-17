@@ -19,7 +19,7 @@ vec2 diff_f(vec2 x);
  * Perform the Newton's Method iteration on functions
  */
 NewtonFractal newtons_method(vec2 z) {
-    const int MAX_ITERATIONS = 256;
+    const int MAX_ITERATIONS = 512;
     // This tolerance is used to figure out the end
     const float TOLERANCE = 0.001;
 

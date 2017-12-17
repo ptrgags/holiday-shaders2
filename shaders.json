@@ -110,11 +110,11 @@
             "desc": "This uses the traditional coloring"
         }, {
             "id": "newton_iteration",
-            "title": "Newton Fractal 3",
+            "title": "Newton Iteration",
             "desc": "This uses my original idea for coloring"
         }, {
             "id": "newton_pop",
-            "title": "Newton Fractal 4",
+            "title": "Newton Pop Art",
             "desc": "This colors each region a flat color for a pop-art effect"
         }, {
             "id": "mandelbrot_cosine",

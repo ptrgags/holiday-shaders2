@@ -84,10 +84,10 @@ void main() {
     // simple cos(angle) * iteration_mask looks cool too
     float cosine_mask = unsigned_signal(cos(TAU * angle - 2.0 * time));
 
-    vec3 a = noise_vec3(0.0);
-    vec3 b = noise_vec3(3.0);
-    vec3 c = noise_vec3(6.0);
-    vec3 d = noise_vec3(9.0);
+    vec3 a = noise_vec3(6.0);
+    vec3 b = noise_vec3(8.0);
+    vec3 c = noise_vec3(3.0);
+    vec3 d = noise_vec3(15.0);
     vec3 palette = cosine_palette(fractal.iterations, a, b, c, d);
 
     float band_mask = noise_lookup(fractal.iterations);
@@ -103,5 +103,5 @@ void main() {
     vec4 color = mix(color1, color2, color_change);
 
 
-    gl_FragColor = display(palette * cosine_mask);
+    gl_FragColor = display(palette);
 }
