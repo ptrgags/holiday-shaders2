@@ -1,6 +1,8 @@
 import complex.frag
 import display.frag
 import noise.frag
+import signals.frag
+import polar.frag
 import mandelbrot_julia.frag
 -- END IMPORTS --
 
@@ -34,9 +36,15 @@ vec2 pick_center(float selection) {
     return vec2(0.0);
 }
 
+vec2 f(vec2 z, vec2 c) {
+    return complex_mult(z, z) + c;
+}
+
+float escape_radius_squared() {
+    return 4.0;
+}
+
 void main() {
-
-
     mat2 rotation = noise_rotation(1.0);
     vec2 center = pick_center(noise_lookup(2.0));
     //vec2 center = pick_center(0.99);
@@ -45,17 +53,23 @@ void main() {
     vec4 color2 = noise_color(7.0);
 
     // Translate, rotate, and zoom
+    // TODO: Fix this
     vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / zoom + center;
 
     // Add depth from a blank slate
     // Thanks to DeviantArt user PonceIndustries for the idea!
-    float num_iterations = mod(5.0 * time, 500.0);
+    float num_iterations = mod(10.0 * time, 500.0);
 
-    float iterations = mandelbrot_julia(vec2(0.0), uv, num_iterations);
+    MJFractal fractal = mandelbrot_julia(vec2(0.0), uv, num_iterations);
 
+    float angle = rect_to_polar(fractal.last_vector).y;
+
+    float iterations = fractal.iterations;
     vec4 hash_coloring = noise_lookup(iterations/*+ 1.5 * time*/) *  color;
     vec4 iteration_coloring = 2.0 * iterations / MAX_ITERATIONS * color2;
     float mix_factor = noise_lookup(4.0);
 
     gl_FragColor = mix(hash_coloring, iteration_coloring, mix_factor);
+    //gl_FragColor = display(cos(angle) * fractal.iterations / MAX_ITERATIONS);
+    //gl_FragColor = vec4(fractal.iterations);
 }

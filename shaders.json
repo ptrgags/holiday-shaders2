@@ -70,8 +70,8 @@
             "desc": "Cells within Cells..."
         }, {
             "id": "mandelbrot_grow",
-            "title": "Mandelbrot Set 1",
-            "desc": "The Mandelbrot Set is a type of fractal"
+            "title": "Growing Mandelbrot Set",
+            "desc": "Wait a moment and you'll see the detail grow!"
         }, {
             "id": "julia",
             "title": "Julia Set",

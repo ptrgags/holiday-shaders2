@@ -2,6 +2,9 @@ import complex.frag
 import display.frag
 import noise.frag
 import mandelbrot_julia.frag
+import signals.frag
+import polar.frag
+import color.frag
 -- END IMPORTS --
 
 vec2 pick_center(float selection) {
@@ -34,28 +37,41 @@ vec2 pick_center(float selection) {
     return vec2(0.0);
 }
 
+vec2 f(vec2 z, vec2 c) {
+    return complex_mult(z, z) + c;
+}
+
+float escape_radius_squared() {
+    return 4.0;
+}
+
 void main() {
-
-
-    mat2 rotation = noise_rotation(1.0);
-    vec2 center = pick_center(noise_lookup(2.0));
+    mat2 rotation = noise_rotation(5.0);
+    vec2 center = pick_center(noise_lookup(7.0));
     //vec2 center = pick_center(0.99);
-    float zoom = mix(50.0, 5e5, noise_lookup(3.0));
-    vec4 color = noise_color(4.0);
-    vec4 color2 = noise_color(7.0);
+    float zoom = mix(50.0, 5e5, noise_lookup(16.0));
+    //vec4 color = noise_color(4.0);
+    //vec4 color2 = noise_color(7.0);
 
     // Translate, rotate, and zoom
+    // TODO: Fix this
     vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / zoom + center;
 
-    // Add depth from a blank slate
-    // Thanks to DeviantArt user PonceIndustries for the idea!
-    float num_iterations = mod(5.0 * time, 500.0);
+    MJFractal fractal = mandelbrot_julia(vec2(0.0), uv, 500.0);
 
-    float iterations = mandelbrot_julia(vec2(0.0), uv, num_iterations);
+    vec3 a = noise_vec3(1.0);
+    vec3 b = noise_vec3(6.0);
+    vec3 c = noise_vec3(12.0);
+    vec3 d = noise_vec3(17.0);
+    vec3 color = cosine_palette(fractal.iterations - floor(2.0 * time), a, b, c, d);
 
-    vec4 hash_coloring = noise_lookup(iterations/*+ 1.5 * time*/) *  color;
-    vec4 iteration_coloring = 2.0 * iterations / MAX_ITERATIONS * color2;
-    float mix_factor = noise_lookup(4.0);
+    float angle = rect_to_polar(fractal.last_vector).y;
+    float cosine_mask = cos(angle);
 
-    gl_FragColor = mix(hash_coloring, iteration_coloring, mix_factor);
+    float hash_mask = noise_lookup(fractal.iterations - 2.0 * time);
+
+
+    //vec4 iteration_coloring = 2.0 * iterations / MAX_ITERATIONS * color2;
+
+    gl_FragColor = display(hash_mask * cosine_mask * color);
 }
