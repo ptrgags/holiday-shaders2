@@ -27,7 +27,7 @@ void main() {
 
     float sweep = divisions * mod(angle - 0.5 * time, 1.0 / divisions);
 
-    vec3 a = noise_vec3(4.0);
+    vec3 a = 0.5 * noise_vec3(4.0) + 0.5;
     vec3 b = noise_vec3(5.0);
     vec3 c = noise_vec3(6.0);
     vec3 d = noise_vec3(7.0);
