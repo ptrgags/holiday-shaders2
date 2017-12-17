@@ -96,6 +96,10 @@
             "id": "mandala",
             "title": "Mandala",
             "desc": "Patterns in polar coordinates"
+        }, {
+            "id": "shell",
+            "title": "Shell",
+            "desc": "the regions of this one remind me of a nautilus shell except circular instead of a spiral"
         }
     ]
 }
