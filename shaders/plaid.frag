@@ -37,9 +37,10 @@ void main() {
 
     // Define UV Coordinates starting from the center
     vec2 uv = CENTERED_UV;
+    vec2 mouse_uv = REGULAR_MOUSE_UV;
 
     // Tilt the coordinate space
-    uv = rotate2d(tilt_angle) * uv;
+    uv = rotate2d(tilt_angle + 0.5 * mouse_uv.x) * uv;
 
     // move the origin
     uv -= offset;
