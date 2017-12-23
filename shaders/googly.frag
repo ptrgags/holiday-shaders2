@@ -1,6 +1,8 @@
 import display.frag
 import signals.frag
 import polar.frag
+import min_max.frag
+import noise.frag
 -- END IMPORTS --
 
 /**
@@ -88,6 +90,128 @@ vec4 overlay_layers(vec4 under, vec4 over) {
     return image;
 }
 
+/**
+ * Mask out the boundaries of a rectangle.
+ */
+float rectangle_mask(vec2 uv, vec2 origin, vec2 dimensions) {
+    vec2 top_right = origin + dimensions;
+    vec2 corner1 = step(vec2(0.0), uv - origin);
+    vec2 corner2 = step(vec2(0.0), top_right - uv);
+    return min_component(corner1) * min_component(corner2);
+}
+
+vec2 uv_rect(vec2 uv, vec2 origin, vec2 dimensions) {
+    return (uv - origin) / dimensions;
+}
+
+float eyebrow(vec2 uv, float eyebrow_type) {
+    const float NUM_EYEBROW_TYPES = 8.0;
+    const float THICKNESS = 0.2;
+    const float BLUR = 0.05;
+    int index = int(eyebrow_type * NUM_EYEBROW_TYPES);
+
+    // No eyebrows
+    float dist = 1.0;
+    if (index == 0) {
+        // Flat eyebrows
+        dist = abs(uv.y - 0.5);
+    } else if (index == 1) {
+        // Concerned eyebrows
+        dist = abs(uv.y - uv.x);
+    } else if (index == 2) {
+        // Angry eyebrows
+        float func = 1.0 - uv.x;
+        dist = abs(uv.y - func);
+    } else if (index == 3) {
+        // Raised eyebrows
+        vec2 shifted = uv - vec2(0.5, 1.0 - THICKNESS);
+        float func = -2.0 * (shifted.x * shifted.x);
+        dist = abs(shifted.y - func);
+    } else if (index == 4) {
+        // Neutral eyebrows
+        vec2 shifted = uv;
+        float func = 0.2 * sqrt(uv.x) + 0.2;
+        dist = abs(shifted.y - func);
+    } else if (index == 5) {
+        // Happy eyebrows
+        vec2 shifted = uv - vec2(0.5, 1.0 - THICKNESS);
+        float func = - 4.0 * (shifted.x * shifted.x);
+        dist = abs(shifted.y - func);
+    } else if (index == 6) {
+        // Squiggly eyebrows
+        float func = -0.2 * sin(TAU * uv.x) + 0.5;
+        dist = abs(uv.y - func);
+    } else if (index == 7) {
+        // Angle eyebrows
+        vec2 shifted = uv - vec2(0.5, 1.0 - THICKNESS);
+        float func = -abs(shifted.x);
+        dist = abs(shifted.y - func);
+    }
+    return smoothstep(THICKNESS + BLUR, THICKNESS, dist);
+}
+
+float mouth(vec2 uv, vec2 dimensions, float mouth_type) {
+    const float NUM_MOUTH_TYPES = 8.0;
+    const float THICKNESS = 0.1;
+    const float BLUR = 0.05;
+    int index = int(mouth_type * NUM_MOUTH_TYPES);
+
+    // No mouth
+    float dist = 1.0;
+    if (index == 0) {
+        // neutral mouth
+        dist = abs(uv.y - 0.5);
+    } else if (index == 1) {
+        // Happy Mouth
+        vec2 shifted = uv - vec2(0.5, 0.5);
+        float func = shifted.x * shifted.x;
+        dist = abs(shifted.y - func);
+    } else if (index == 2) {
+        // Sad mouth
+        vec2 shifted = uv - vec2(0.5, 0.5);
+        float func = -(shifted.x * shifted.x);
+        dist = abs(shifted.y - func);
+    } else if (index == 3) {
+        // Very happy mouth
+        vec2 shifted = uv - vec2(0.5, 0.5);
+        float func = 4.0 * (shifted.x * shifted.x);
+        dist = abs(shifted.y - func);
+    } else if (index == 4) {
+        // Confused face
+        float func = -0.2 * sin(TAU * uv.x) + 0.5;
+        dist = abs(uv.y - func);
+    } else if (index == 5) {
+        // Displeased face
+        float func = 0.4 * uv.x + 0.5;
+        dist = abs(uv.y - func);
+    } else if (index == 6) {
+        // Grin
+
+        // center and scale the origin so the canvas is [-1, 1]
+        // in both directions
+        vec2 shifted = 2.0 * (uv - 0.5);
+
+        // Top line
+        float func1 = 0.5;
+        float dist1 = abs(shifted.y - func1);
+
+        // Bottom curve
+        float func2 = shifted.x * shifted.x - 0.5;
+        float dist2 = abs(shifted.y - func2);
+
+        // Make the union of the two shapes
+        dist = min(dist1, dist2);
+    } else if (index == 7) {
+        // Surprised face
+        vec2 center = dimensions / 2.0;
+        vec2 centered = (uv * dimensions - center) / dimensions.y;
+        float center_dist = length(centered);
+        const float RADIUS = 0.35;
+        dist = abs(center_dist - RADIUS);
+    }
+    return smoothstep(THICKNESS + BLUR, THICKNESS, dist);
+}
+
 void main() {
     // Constants ==========================================================
 
@@ -95,7 +219,7 @@ void main() {
     const vec2 LEFT_EYE = vec2(0.3, 0.65);
     const vec2 RIGHT_EYE = vec2(0.7, 0.65);
 
-    vec4 COLOR_BG = vec4(0.2, 0.0, 0.5, 1.0);
+    vec4 color_bg = noise_color(5.0);
 
     // ====================================================================
 
@@ -108,8 +232,30 @@ void main() {
     vec4 right_eye = googly_eye(uv, mouse_uv, RIGHT_EYE);
     vec4 eyes = overlay_layers(left_eye, right_eye);
 
+    const vec2 MOUTH_POS = vec2(0.25, 0.2);
+    const vec2 MOUTH_DIMS = vec2(0.5, 0.2);
+    float mouth_mask = rectangle_mask(uv, MOUTH_POS, MOUTH_DIMS);
+    vec2 mouth_uv = uv_rect(uv, MOUTH_POS, MOUTH_DIMS);
+    float mouth = mouth(mouth_uv, MOUTH_DIMS, noise_lookup(10.0));
+
+    const vec2 LEFT_EYEBROW_POS = vec2(0.15, 0.85);
+    const vec2 RIGHT_EYEBROW_POS = vec2(0.6, 0.85);
+    const vec2 EYEBROW_DIMS = vec2(0.25, 0.1);
+
+    float left_eyebrow_mask = rectangle_mask(uv, LEFT_EYEBROW_POS, EYEBROW_DIMS);
+    vec2 left_eyebrow_uv = uv_rect(uv, LEFT_EYEBROW_POS, EYEBROW_DIMS);
+    float left_eyebrow = eyebrow(left_eyebrow_uv, noise_lookup(3.0));
+
+    float right_eyebrow_mask = rectangle_mask(uv, RIGHT_EYEBROW_POS, EYEBROW_DIMS);
+    vec2 right_eyebrow_uv = uv_rect(uv, RIGHT_EYEBROW_POS, EYEBROW_DIMS);
+    right_eyebrow_uv.x = 1.0 - right_eyebrow_uv.x;
+    float right_eyebrow = eyebrow(right_eyebrow_uv, noise_lookup(3.0));
+
     // Construct the layers
-    vec4 image = OVERLAY(COLOR_BG, eyes, eyes.a);
+    vec4 image = OVERLAY(color_bg, eyes, eyes.a);
+    image = OVERLAY(image, vec4(0.0), mouth * mouth_mask);
+    image = OVERLAY(image, vec4(0.0), left_eyebrow * left_eyebrow_mask);
+    image = OVERLAY(image, vec4(0.0), right_eyebrow * right_eyebrow_mask);
 
     gl_FragColor = display(image);
 }

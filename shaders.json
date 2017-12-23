@@ -41,6 +41,10 @@
             "title": "Plaid",
             "desc": "Plaid patterns"
         }, {
+            "id": "googly",
+            "title": "Googly Eyes",
+            "desc": "You're being watched..."
+        }, {
             "id": "newton_cosine",
             "title": "Newton Fractal 1",
             "desc": "This fractal is created from Newton's Method in the complex plane"
@@ -84,10 +88,6 @@
             "id": "invisible_ink",
             "title": "Invisible Ink",
             "desc": "This is a simulation of invisible ink under a black light"
-        }, {
-            "id": "googly",
-            "title": "Googly Eyes",
-            "desc": "You're being watched..."
         }, {
             "id": "liquid_metal",
             "title": "Liquid Metal",
