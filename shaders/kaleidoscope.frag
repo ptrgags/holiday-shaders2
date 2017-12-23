@@ -66,9 +66,14 @@ void main() {
     dist = distance(mouse_uv - 0.75, mirrored);
     float wave3 = sin(10.0 * dist - 3.0 * time);
 
-    vec3 image = color1 * wave1;
-    image = mix(image, color2 * wave2, 0.5);
-    image = mix(image, color3 * wave3, 0.5);
+    // Make the waves less blurry. Suggested by
+    // DeviantArt user PonceIndustries
+    vec3 blurry = vec3(wave1, wave2, wave3);
+    vec3 sharp = smoothstep(0.8, 1.0, blurry);
+
+    vec3 image = color1 * sharp.x;
+    image = mix(image, color2 * sharp.y, 0.5);
+    image = mix(image, color3 * sharp.z, 0.5);
 
     gl_FragColor = display(image);
 }
