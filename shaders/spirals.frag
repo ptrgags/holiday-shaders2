@@ -2,6 +2,8 @@ import signals.frag
 import polar.frag
 import noise.frag
 import tiling.frag
+import color.frag
+import display.frag
 -- END IMPORTS --
 
 
@@ -39,25 +41,37 @@ float log_spiral(
 }
 
 void main() {
-    vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x;
+    vec2 uv = CENTERED_UV;
+    vec2 mouse_uv = REGULAR_MOUSE_UV;
 
     // Tile space
     Tiling2D squares = tile_2d(uv, vec2(4.0));
 
     vec2 polar = rect_to_polar(squares.uv - 0.5);
 
-    polar = polar_rotate(polar, noise_lookup(15.0, squares.id));
+    polar = polar_rotate(polar, noise_lookup(15.0, squares.id) + mouse_uv.x);
 
-    float a = noise_lookup(1.0, squares.id);
-    float b = noise_lookup(2.0, squares.id);
+    float a_noise = noise_lookup(1.0, squares.id);
+    float b_noise = noise_lookup(2.0, squares.id);
     float thickness = noise_lookup(20.0);
-    float line = log_spiral(polar, a, b, thickness);
+    float line = log_spiral(polar, a_noise, b_noise, thickness);
 
     Tiling1D tiling = tile_1d(polar.y, 6.0);
     float color_select = mod(tiling.id, 2.0);
-    vec4 color1 = noise_color(squares.id);
-    vec4 color2 = noise_color(squares.id + 3.0);
-    vec4 color = mix(color1, color2, color_select);
 
-    gl_FragColor = line * color;
+    vec3 a = noise_vec3(4.0);
+    vec3 b = noise_vec3(8.0);
+    vec3 c = noise_vec3(9.0);
+    vec3 d = noise_vec3(10.0);
+    vec3 color1 = cosine_palette(0.2, a, b, c, d);
+    vec3 color2 = cosine_palette(0.4, a, b, c, d);
+    vec3 color3 = cosine_palette(0.6, a, b, c, d);
+    vec3 color4 = cosine_palette(0.8, a, b, c, d);
+
+    vec3 palette_a = mix(color1, color2, color_select);
+    vec3 palette_b = mix(color3, color4, color_select);
+    float palette_select = step(0.5, noise_lookup(squares.id));
+    vec3 color = mix(palette_a, palette_b, palette_select);
+
+    gl_FragColor = display(line * color);
 }
