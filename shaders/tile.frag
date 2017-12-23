@@ -4,12 +4,8 @@ import polar.frag
 -- END IMPORTS --
 
 void main() {
-    // Convert to UV coordinates
-    //vec2 uv = gl_FragCoord.xy / resolution;
-
-    // Centered UV coordinates
-    //vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x;
     vec2 uv = CENTERED_UV;
+    vec2 mouse_uv = REGULAR_MOUSE_UV;
 
     // Mirror the UV space
     vec2 mirrored_uv = abs(uv);
@@ -41,7 +37,7 @@ void main() {
     float triangle_num = idx_2d_to_1d(triangle_coords, NUM_TRIANGLES);
 
     // Determine how to color the triangle based on the noise buffer
-    float noise = noise_lookup(triangle_num, 3.0 * tiles.id);
+    float noise = noise_lookup(triangle_num - 8.0 * mouse_uv.x, 3.0 * tiles.id);
     float threshold = step(0.5, noise);
 
     // =======================================================================
