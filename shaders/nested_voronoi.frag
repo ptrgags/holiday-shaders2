@@ -16,7 +16,7 @@ void main() {
     float voronoi_border = smoothstep(0.21, 0.20, cells.dist_from_border);
 
     vec2 cell_uv = uv - cells.center_global_uv;
-    Tiling2D tiny_squares = tile_2d(cells.center_uv, vec2(10.0));
+    Tiling2D tiny_squares = tile_2d(cells.center_uv, vec2(8.0));
     VoronoiCells tiny_cells = voronoi(tiny_squares);
     float tiny_borders = smoothstep(0.21, 0.20, tiny_cells.dist_from_border);
 

@@ -5,6 +5,28 @@ struct VoronoiCells {
     float dist_from_border;
 };
 
+vec2 triangle_wave(vec2 x, float freq) {
+    return abs(mod(freq * x, 2.0) - 1.0);
+}
+
+/**
+ * I sense a disturbance in the code...
+ *
+ * Use a hash function to move the seed points in random
+ * directions and a sine wave to animate the points
+ */
+vec2 disturb(vec2 coords) {
+    // Use a hash to move the point around to a random point in the
+    // UV square
+    vec2 perturbed = hash22(coords);
+
+    // Move the seed points around
+    // Triangle wave had less precision issues than sine for nested
+    // voronoi
+    return triangle_wave(perturbed - 0.2 * time, 2.0);
+    //return 0.5 + 0.5 * sin(perturbed - TAU * time);
+}
+
 VoronoiCells voronoi(Tiling2D grid) {
     vec2 nearest_offset;
     vec2 to_nearest;
@@ -21,7 +43,8 @@ VoronoiCells voronoi(Tiling2D grid) {
             vec2 neighbor_coords = grid.coords + offset;
 
             // UV coordinates of the point in the neighbor cell.
-            vec2 neighbor_center = offset + hash22(neighbor_coords);
+            vec2 disturbed = disturb(neighbor_coords);
+            vec2 neighbor_center = offset + disturbed;
 
             // vector to neighbor's center relative to our center
             vec2 to_neighbor = neighbor_center - grid.uv;
@@ -47,7 +70,8 @@ VoronoiCells voronoi(Tiling2D grid) {
 
             // Same as above except the offset is different
             vec2 neighbor_coords = grid.coords + offset;
-            vec2 neighbor_center = offset + hash22(neighbor_coords);
+            vec2 disturbed = disturb(neighbor_coords);
+            vec2 neighbor_center = offset + disturbed;
             vec2 to_neighbor = neighbor_center - grid.uv;
 
             // This time, project onto the line between to_nearest
@@ -65,7 +89,7 @@ VoronoiCells voronoi(Tiling2D grid) {
     //result.center_uv = to_nearest;
     result.center_uv = -to_nearest / grid.num_tiles;
     result.center_coords = grid.coords + nearest_offset;
-    result.center_global_uv = result.center_coords + hash22(result.center_coords);
+    result.center_global_uv = result.center_coords + disturb(result.center_coords);
     result.center_global_uv /= grid.num_tiles;
     result.dist_from_border = sqrt(min_dist);
     return result;
