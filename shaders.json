@@ -68,9 +68,9 @@
             "title": "Wheat",
             "desc": "This pattern was loosely inspired by the shape of blades of wheat"
         }, {
-            "id": "nested_voronoi",
-            "title": "Nested Voronoi Diagram",
-            "desc": "Cells within Cells..."
+            "id": "stained_glass",
+            "title": "Stained Glass",
+            "desc": "Nested Voronoi pattern colored to look like glass"
         }, {
             "id": "mandelbrot_grow",
             "title": "Growing Mandelbrot Set",
