@@ -5,6 +5,8 @@ import noise.frag
 import hash.frag
 import voronoi.frag
 import color.frag
+import perlin_noise.frag
+import fractal_brownian_motion.frag
 -- END IMPORTS --
 
 void main() {
@@ -38,7 +40,16 @@ void main() {
     float palette_select = step(0.5, hash21(cells.center_coords));
     vec3 palette = mix(palette1, palette2, palette_select);
 
-    vec3 image = palette;
+    // Add some texture to make this look like stained glass
+    float amp = 0.6;
+    float freq = 4.0;
+    float gain = 0.2;
+    float lacunarity = 2.5;
+    int octaves = 6;
+    float stain = fbm(
+        2.0 * uv - sin(time * 0.1) - noise_vec2(19.0), amp, freq, gain, lacunarity, octaves);
+
+    vec3 image = palette * stain;
     image = mix(image, line_color, tiny_borders);
     image = mix(image, line_color, voronoi_border);
 
