@@ -74,7 +74,16 @@ class NoiseSource {
     }
 
     update_rand() {
-        //TODO: Check whether to skip updating
+        // Control update speed by skipping updates
+        const MAX_FREQ = 20;
+        this.rand_freq = MAX_FREQ - parseInt($('#rand-freq').val()) + 1;
+
+        let frame = this.rand_updates;
+        this.rand_updates++;
+        if (frame % this.rand_freq !== 0)
+            return;
+
+        console.warn(this.rand_freq);
 
         // Make a buffer of 32 bytes
         let empty = Array(BUFFER_LENGTH).fill(0.0);
