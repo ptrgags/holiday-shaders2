@@ -36,8 +36,8 @@
             "id": "squash",
             "title": "Squash and Stretch"
         }, {
-            "id": "bumpy",
-            "title": "Bumpy"
+            "id": "expand",
+            "title": "Expand"
         }
     ],
     "fragment": [
