@@ -32,6 +32,12 @@
         }, {
             "id": "boxy",
             "title": "Boxy"
+        }, {
+            "id": "squash",
+            "title": "Squash and Stretch"
+        }, {
+            "id": "bumpy",
+            "title": "Bumpy"
         }
     ],
     "fragment": [
@@ -111,7 +117,7 @@
             "id": "newton_pop",
             "title": "Newton Pop Art",
             "desc": "This colors each region a flat color for a pop-art effect"
-        }, {    
+        }, {
             "id": "newton_traditional",
             "title": "Newton Traditional Coloring",
             "desc": "Traditionally, you color the fractal by which root was reached. This is an example of this with a twist."
