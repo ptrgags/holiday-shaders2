@@ -46,6 +46,11 @@
     <div class="container-fluid">
         <!-- Title and main buttons to switch shaders/open settings -->
         <h2 class="text-center">Holiday Shaders 2</h2>
+        <div class="text-center">
+            <a href="#">Tutorials</a>
+            &bull;
+            <a href="#">Credits</a>
+        </div>
 
         <div class="row">
             <!-- Canvas for displaying the shader -->
@@ -144,8 +149,14 @@
                         <!-- MANUAL OVERRIDE -->
                         <div class="form-group">
                             <input type="radio" name="noise-source" value="manual_hash"/>
-                            Manual
-                            <div id="manual-controls">[CONTROLS]</div>
+                            Manual &rarr;
+                            (<a href="#manual-controls" data-toggle="collapse">Show/Hide Sliders</a>)
+                            <div id="manual-controls" class="collapse">
+                                <span>0<input id="manual-0" type="range", value="0" /></span>
+                                <span>1<input id="manual-1" type="range", value="0" /></span>
+                                <span>2<input id="manual-2" type="range", value="0" /></span>
+                            </div>
+                            <br />
                             &rarr;
                             <code class="hash" id="manual-hash"></code>
                         </div>
