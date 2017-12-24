@@ -22,6 +22,14 @@ vec2 noise_vec2(vec2 offset) {
     return noise_vec2(id);
 }
 
+vec3 noise_vec3(float offset) {
+    return vec3(
+        noise_lookup(0.0, offset),
+        noise_lookup(1.0, offset),
+        noise_lookup(2.0, offset)
+    );
+}
+
 /**
  * Pick a random rotation
  */

@@ -1,15 +1,14 @@
 import tiling.frag
 import signals.frag
 import polar.frag
+import noise.frag
+import color.frag
+import display.frag
 -- END IMPORTS --
 
 void main() {
-    // Convert to UV coordinates
-    //vec2 uv = gl_FragCoord.xy / resolution;
-
-    // Centered UV coordinates
-    //vec2 uv = (gl_FragCoord.xy - CENTER) / resolution.x;
     vec2 uv = CENTERED_UV;
+    vec2 mouse_uv = REGULAR_MOUSE_UV;
 
     // Mirror the UV space
     vec2 mirrored_uv = abs(uv);
@@ -41,9 +40,17 @@ void main() {
     float triangle_num = idx_2d_to_1d(triangle_coords, NUM_TRIANGLES);
 
     // Determine how to color the triangle based on the noise buffer
-    float noise = noise_lookup(triangle_num, 3.0 * tiles.id);
+    float noise = noise_lookup(triangle_num - 8.0 * mouse_uv.x, 3.0 * tiles.id);
     float threshold = step(0.5, noise);
 
     // =======================================================================
-    gl_FragColor = threshold * vec4(1.0, 0.0, 0.0, 1.0);
+
+    // Add a random color
+    vec3 a = noise_vec3(7.0);
+    vec3 b = noise_vec3(13.0);
+    vec3 c = noise_vec3(17.0);
+    vec3 d = noise_vec3(23.0);
+    vec3 color = cosine_palette(0.5, a, b, c, d);
+
+    gl_FragColor = display(threshold * color);
 }

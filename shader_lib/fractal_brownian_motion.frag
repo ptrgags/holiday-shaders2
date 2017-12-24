@@ -6,6 +6,7 @@
  * https://thebookofshaders.com/13/
  */
 #define MAX_OCTAVES 100
+
 float fbm(
         vec2 uv,
         float amplitude,
@@ -16,7 +17,7 @@ float fbm(
     // Initial values
     float value = 0.0;
 
-    // Sum a bunch of
+    // Sum a bunch of noise functions
     for (int i = 0; i < MAX_OCTAVES; i++) {
         // Only do the specified number of octaves.
         if (i >= octaves)
@@ -26,6 +27,21 @@ float fbm(
         amplitude *= gain;
     }
     return value;
+}
+
+/**
+ * Sometimes it would be helpful to know the max amplitude for the FBM.
+ * this does the same iteration and counts the amplitude.
+ */
+float max_amp(float amplitude, float gain, int octaves) {
+    float val = 0.0;
+    for (int i = 0; i < MAX_OCTAVES; i++) {
+        if (i >= octaves)
+            break;
+        val += amplitude;
+        amplitude *= gain;
+    }
+    return val;
 }
 
 /**

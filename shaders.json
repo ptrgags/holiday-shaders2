@@ -12,11 +12,12 @@
         "mandelbrot_julia",
         "min_max",
         "perlin_noise",
-        "simplex_noise",
         "trig",
         "patterns",
         "voronoi",
-        "transform"
+        "transform",
+        "newtons_method",
+        "color"
     ],
     "vertex": [
         {
@@ -39,8 +40,12 @@
             "title": "Plaid",
             "desc": "Plaid patterns"
         }, {
-            "id": "newton",
-            "title": "Newton's Method Fractal",
+            "id": "googly",
+            "title": "Googly Eyes",
+            "desc": "You're being watched..."
+        }, {
+            "id": "newton_cosine",
+            "title": "Newton Fractal 1",
             "desc": "This fractal is created from Newton's Method in the complex plane"
         }, {
             "id": "tile",
@@ -63,13 +68,13 @@
             "title": "Wheat",
             "desc": "This pattern was loosely inspired by the shape of blades of wheat"
         }, {
-            "id": "nested_voronoi",
-            "title": "Nested Voronoi Diagram",
-            "desc": "Cells within Cells..."
+            "id": "stained_glass",
+            "title": "Stained Glass",
+            "desc": "Nested Voronoi pattern colored to look like glass"
         }, {
-            "id": "mandelbrot",
-            "title": "Mandelbrot Set",
-            "desc": "The Mandelbrot Set is a type of fractal"
+            "id": "mandelbrot_grow",
+            "title": "Growing Mandelbrot Set",
+            "desc": "Wait a moment and you'll see the detail grow!"
         }, {
             "id": "julia",
             "title": "Julia Set",
@@ -82,6 +87,42 @@
             "id": "invisible_ink",
             "title": "Invisible Ink",
             "desc": "This is a simulation of invisible ink under a black light"
+        }, {
+            "id": "liquid_metal",
+            "title": "Liquid Metal",
+            "desc": "An experiment with Fractal Brownian Motion"
+        }, {
+            "id": "mandala",
+            "title": "Mandala",
+            "desc": "Patterns in polar coordinates"
+        }, {
+            "id": "shell",
+            "title": "Shell",
+            "desc": "the regions of this one remind me of a nautilus shell except circular instead of a spiral"
+        }, {
+            "id": "kaleidoscope",
+            "title": "Kaleidoscope",
+            "desc": "Mirrors everywhere."
+        }, {
+            "id": "newton_traditional",
+            "title": "Newton Traditional Coloring",
+            "desc": "Traditionally, you color the fractal by which root was reached. This is an example of this with a twist."
+        }, {
+            "id": "newton_iteration",
+            "title": "Newton Iteration",
+            "desc": "This uses my original idea for coloring"
+        }, {
+            "id": "newton_pop",
+            "title": "Newton Pop Art",
+            "desc": "This colors each region a flat color for a pop-art effect"
+        }, {
+            "id": "mandelbrot_cosine",
+            "title": "Mandelbrot Metal",
+            "desc": "This is the mandelbrot with cosine coloring"
+        }, {
+            "id": "mandelbrot_cycle",
+            "title": "Mandelbrot Cycled Colors",
+            "desc": "This is the Mandelbrot set except the colors are animated"
         }
     ]
 }
