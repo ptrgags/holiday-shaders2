@@ -51,8 +51,8 @@ void main() {
     float zoom = mix(50.0, 5e5, noise_lookup(27.0));
 
     // Translate, rotate, and zoom
-    // TODO: Fix this
-    vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / zoom + center;
+    vec2 centered = v_uv * resolution - resolution / 2.0;
+    vec2 uv = rotation * centered / zoom + center;
 
     MJFractal fractal = mandelbrot_julia(vec2(0.0), uv, 500.0);
 

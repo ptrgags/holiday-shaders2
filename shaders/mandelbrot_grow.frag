@@ -53,8 +53,8 @@ void main() {
     vec4 color2 = noise_color(7.0);
 
     // Translate, rotate, and zoom
-    // TODO: Fix this
-    vec2 uv = rotation * (gl_FragCoord.xy - CENTER) / zoom + center;
+    vec2 centered = v_uv * resolution - resolution / 2.0;
+    vec2 uv = rotation * centered / zoom + center;
 
     // Add depth from a blank slate
     // Thanks to DeviantArt user PonceIndustries for the idea!
