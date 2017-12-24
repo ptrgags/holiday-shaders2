@@ -83,8 +83,6 @@ class NoiseSource {
         if (frame % this.rand_freq !== 0)
             return;
 
-        console.warn(this.rand_freq);
-
         // Make a buffer of 32 bytes
         let empty = Array(BUFFER_LENGTH).fill(0.0);
         let rand = empty
