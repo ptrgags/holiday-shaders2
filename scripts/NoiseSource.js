@@ -29,15 +29,35 @@ class NoiseSource {
         // Make sure sha_hash is the default
         $("input[name=noise-source][value=sha_hash]").prop("checked", true);
 
+        // Create sliders for manual mode.
+        this.create_manual_sliders();
+
         // Update everything once so we don't have blank output
         this.update_hash();
         this.update_time();
         this.update_rand();
         this.update_manual();
-        this.update_keyboard(Array(32).fill(0.0));
+        this.update_keyboard(Array(BUFFER_LENGTH).fill(0.0));
 
         // Set up callbacks so we can respond to the user's actions
         this.setup_listeners();
+    }
+
+    create_manual_sliders() {
+        let container = $("#manual-controls");
+        for (let i = 0; i < BUFFER_LENGTH; i++) {
+            let slider = $("<input>")
+                .attr({
+                    id: `manual-${i}`,
+                    type: 'range',
+                    value: 0,
+                    min: 0,
+                    max: 255,
+                    step: 1
+                })
+                .on("input", () => this.update_manual())
+                .appendTo(container);
+        }
     }
 
     update_hash() {
@@ -68,7 +88,17 @@ class NoiseSource {
     }
 
     update_manual() {
+        let values = [];
+        for (let i = 0; i < BUFFER_LENGTH; i++) {
+            let slider_val = $(`#manual-${i}`).val();
+            values.push(parseInt(slider_val));
+        }
 
+        let hex = values.map((x) => x.toString(RADIX_HEX))
+            .map(NoiseSource.pad_hex_byte);
+
+        this.manual_hash = hex.join('');
+        $("#manual-hash").html(this.manual_hash);
     }
 
     update_keyboard(keyboard_buffer) {
