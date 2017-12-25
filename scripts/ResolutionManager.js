@@ -11,6 +11,10 @@ const RESOLUTIONS = {
     medium: new THREE.Vector2(750, 1050),
     // Art Trading Card @ 600 dpi
     large: new THREE.Vector2(1500, 2100),
+    // Square Textures
+    tex_small: new THREE.Vector2(256, 256),
+    tex_medium: new THREE.Vector2(512, 512),
+    tex_large: new THREE.Vector2(1024, 1024)
 }
 
 class ResolutionManager {
@@ -25,16 +29,13 @@ class ResolutionManager {
         $('#size-small').click(() => this.resize('small'));
         $('#size-medium').click(() => this.resize('medium'));
         $('#size-large').click(() => this.resize('large'));
-        $('#size-fill').click(() => this.fill_container());
+        $('#size-small-tex').click(() => this.resize('tex_small'));
+        $('#size-medium-tex').click(() => this.resize('tex_medium'));
+        $('#size-large-tex').click(() => this.resize('tex_large'));
     }
 
     resize(size_id) {
         this.resolution = RESOLUTIONS[size_id];
-        this.publish();
-    }
-
-    fill_container() {
-        // TODO: Check how to do this
         this.publish();
     }
 

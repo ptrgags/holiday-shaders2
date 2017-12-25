@@ -46,7 +46,7 @@
     <div class="container-fluid">
         <!-- Title and main buttons to switch shaders/open settings -->
         <h2 class="text-center">Holiday Shaders 2</h2>
-        <div class="text-center">
+        <div id="links" class="text-center">
             <a href="index.html">Home</a>
             &bull;
             <a href="tutorials.html">Tutorials</a>
@@ -55,7 +55,6 @@
             &bull;
             <a href="contact.html">Contact</a>
         </div>
-
         <div class="row">
             <!-- Canvas for displaying the shader -->
             <div class="col-sm-7 text-center">
@@ -68,10 +67,12 @@
                             </div>
                             <div class="col-sm-10">
                                 <button id="size-avatar" class="btn btn-primary">Avatar</button>
-                                <button id="size-small" class="btn btn-primary">Small</button>
-                                <button id="size-medium" class="btn btn-primary">Medium</button>
-                                <button id="size-large" class="btn btn-primary">Large</button>
-                                <button id="size-fill" class="btn btn-primary">Fill Container</button>
+                                <button id="size-small" class="btn btn-primary">Small Card</button>
+                                <button id="size-medium" class="btn btn-primary">Medium Card</button>
+                                <button id="size-large" class="btn btn-primary">Large Card</button>
+                                <button id="size-small-tex" class="btn btn-primary">Small Texture</button>
+                                <button id="size-medium-tex" class="btn btn-primary">Medium Texture</button>
+                                <button id="size-large-tex" class="btn btn-primary">Large Texture</button>
                             </div>
                         </div>
                     </div>
@@ -89,7 +90,10 @@
                         </div>
                     </div>
                 </div>
-                <canvas id="screen"></canvas>
+                <!-- The Three.js canvas + a wrapper for full-screen -->
+                <div id="wrapper">
+                    <canvas id="screen"></canvas>
+                </div>
             </div>
 
             <!-- Info panel for shader -->
