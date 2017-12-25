@@ -36,6 +36,7 @@
 .btn.btn-primary {
     padding: 4px 8px;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 input.form-control, select.form-control {
