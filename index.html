@@ -1,38 +1,196 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Three.js Shaders</title>
-        <link rel="stylesheet" href="styles/main.css" />
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/88/three.js"></script>
-        <script src="scripts/sha256.js"></script>
-        <script src="scripts/main.js"></script>
-    </head>
-    <body>
-        <div class="container-fluid">
-            <h2 class="text-center">Eyecandy - <span id="title"></span> (<span id="current"></span>/<span id="all"></span>)</h2>
-            <div class="row">
-                <div class="col-sm-2">
-                    <button id="prev" class="btn btn-primary">&lt; Previous</button>
+<head>
+    <meta charset="utf-8">
+
+    <title>Three.js Shaders</title>
+
+    <link rel="stylesheet" href="styles/main.css" />
+
+    <!-- Bootstrap & JQuery -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous">
+    </script>
+
+    <!-- Three.js -->
+    <!-- TODO: Move this to vendor/ -->
+    <!--<script src="scripts/three.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/88/three.js"></script>
+
+    <!-- SHA-256 hash function -->
+    <script src="scripts/sha256.js"></script>
+
+    <!-- Helper libraries -->
+    <script src="scripts/Messenger.js"></script>
+    <script src="scripts/NoiseSource.js"></script>
+    <script src="scripts/AnimationManager.js"></script>
+    <script src="scripts/UniformManager.js"></script>
+    <script src="scripts/ShaderLibrary.js"></script>
+    <script src="scripts/ShaderSelector.js"></script>
+    <script src="scripts/MaterialManager.js"></script>
+    <script src="scripts/ShaderViewer.js"></script>
+    <script src="scripts/DimensionsSelector.js"></script>
+    <script src="scripts/ShaderRenderer.js"></script>
+    <script src="scripts/ResolutionManager.js"></script>
+    <script src="scripts/InputManager.js"></script>
+    <script src="scripts/ModelSelector.js"></script>
+
+    <!-- Main Script -->
+    <script src="scripts/main2.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Title and main buttons to switch shaders/open settings -->
+        <h2 class="text-center">Holiday Shaders 2</h2>
+        <div id="links" class="text-center">
+            <a href="index.html">Home</a>
+            &bull;
+            <a href="tutorials.html">Tutorials</a>
+            &bull;
+            <a href="credits.html">Credits</a>
+            &bull;
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="row">
+            <!-- Canvas for displaying the shader -->
+            <div class="col-sm-7 text-center">
+                <div class="justify-controls">
+                    <!-- Size Controls -->
+                    <div id="resolution" class="vertical-space">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label>Size</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <button id="size-avatar" class="btn btn-primary">Avatar</button>
+                                <button id="size-small" class="btn btn-primary">Small Card</button>
+                                <button id="size-medium" class="btn btn-primary">Medium Card</button>
+                                <button id="size-large" class="btn btn-primary">Large Card</button>
+                                <button id="size-small-tex" class="btn btn-primary">Small Texture</button>
+                                <button id="size-medium-tex" class="btn btn-primary">Medium Texture</button>
+                                <button id="size-large-tex" class="btn btn-primary">Large Texture</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Animation controls -->
+                    <div id="animation" class="vertical-space">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label>Animation</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <button id="pause" class="btn btn-primary">Pause</button>
+                                <button id="rewind" class="btn btn-primary">Rewind</button>
+                                Elapsed Time (sec): <span id="animation-time"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-8">
-                    <p id="desc"></p>
-                </div>
-                <div class="col-sm-2">
-                    <button id="next" class="btn btn-primary">Next &gt;</button>
+                <!-- The Three.js canvas + a wrapper for full-screen -->
+                <div id="wrapper">
+                    <canvas id="screen"></canvas>
                 </div>
             </div>
-            <div>
-            <div class="form-group">
-                <input id="to-hash" />
-                <span id="hash"></span>
-            </div>
-            <div id="wrapper">
-                <canvas id="three"></canvas>
+
+            <!-- Info panel for shader -->
+            <div class="col-sm-5">
+                <h4 class="text-center">
+                    <!--<button id="prev" class="btn btn-primary">Previous</button>-->
+                    <a id="prev"><span class="glyphicon glyphicon-menu-left"></span></a>
+
+                    <span class="wide">
+                        <span id="shader-title">[TITLE]</span>
+                        - (<span id="shader-index">[CURRENT]</span>/<span id="num-shaders">[MAX]</span>)
+                    </span>
+                    <a id="next"><span class="glyphicon glyphicon-menu-right"></span></a>
+                </h4>
+                <p id="shader-description">[INFO]</p>
+
+                <!-- Collapsible Settings panel -->
+                <div id="settings" class="well">
+                    <h3 class="text-center">Settings</h3>
+                    <div id="noise-source">
+                        <label>Noise Source</label>
+                        <!-- Use a SHA-256 hash as the noise buffer -->
+                        <div class="form-inline">
+                            <input type="radio" name="noise-source" value="sha_hash"/>
+                            Hash
+                            <input id="hash-input" placeholder="Type any text here!" class="form-control"/>
+                            &rarr;
+                            <code class="hash" id="hash-output"></code>
+                        </div>
+
+                        <!-- Use the current time as the noise buffer -->
+                        <div class="form-group">
+                            <input type="radio" name="noise-source" value="time_hash"/>
+                            Time
+                            &rarr;
+                            <span id="time"></span>
+                            &rarr;
+                            <code class="hash" id="time-hash"></code>
+                        </div>
+
+                        <!-- Use random numbers as the buffer -->
+                        <div class="form-group">
+                            <input type="radio" name="noise-source" value="rand_hash"/>
+                            Random
+                            &rarr;
+                            <code class="hash" id="rand-hash"></code>
+                            <br/>
+                            Update Speed: Slow
+                            <input id="rand-freq" type="range" min="1" max="20" step="1" value="10" />
+                            Fast
+                        </div>
+
+                        <!-- Toggle bits with the keyboardd -->
+                        <div class="form-group">
+                            <input type="radio" name="noise-source" value="keyboard_hash"/>
+                            Keyboard
+                            &rarr;
+                            <code class="hash" id="keyboard-hash"></code>
+                        </div>
+
+                        <!-- MANUAL OVERRIDE -->
+                        <div class="form-group">
+                            <input type="radio" name="noise-source" value="manual_hash"/>
+                            Manual
+                            &rarr;
+                            <code class="hash" id="manual-hash"></code>
+                            <br/>
+                            (<a href="#manual-controls" data-toggle="collapse">Show/Hide Sliders</a>)
+                            <div id="manual-controls" class="collapse"></div>
+                        </div>
+                    </div>
+                    <div id="dimension-select">
+                        <label>Dimensions</label>
+                        <button id="mode-2d" class="btn btn-primary">2D</button>
+                        <button id="mode-3d" class="btn btn-primary">3D</button>
+                    </div>
+                    <div id="settings-3d">
+                        <label>3D Model</label>
+                        <div class="form-group">
+                            <select id="model-select" class="form-control">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input id="rotate-model" type="checkbox" checked/>
+                            Rotate
+                        </div>
+                    </div>
+                    <div id="vertex-settings">
+                        <label>Vertex Shader</label>
+                        <div class="form-group">
+                            <select id="vertex-shader" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>

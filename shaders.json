@@ -32,97 +32,103 @@
         }, {
             "id": "boxy",
             "title": "Boxy"
+        }, {
+            "id": "squash",
+            "title": "Squash and Stretch"
+        }, {
+            "id": "expand",
+            "title": "Expand"
         }
     ],
     "fragment": [
         {
+            "id": "voronoi_doodle",
+            "title": "Voronoi Doodle",
+            "desc": "This pattern is inspired by my <a href=\"https://ptrgags.deviantart.com/art/2017-11-29-Doodle-720100562\">fountain pen art</a>. The pattern of cells is a <a href=\"https://en.wikipedia.org/wiki/Voronoi_diagram\">Voronoi Diagram</a>."
+        },{
             "id": "plaid",
             "title": "Plaid",
-            "desc": "Plaid patterns"
-        }, {
-            "id": "googly",
-            "title": "Googly Eyes",
-            "desc": "You're being watched..."
-        }, {
-            "id": "newton_cosine",
-            "title": "Newton Fractal 1",
-            "desc": "This fractal is created from Newton's Method in the complex plane"
+            "desc": "Simple plaid patterns. This one works well in 3D mode and with keyboard/manual inputs."
         }, {
             "id": "tile",
             "title": "Triangle Tiles",
-            "desc": "A random, symmetric tiling of triangles"
-        }, {
-            "id": "warp",
-            "title": "Warped Space",
-            "desc": "Take a grid of circles and warp it randomly"
+            "desc": "Many forums use patterns like this for default avatars. Such images were my inspiration for this project."
         }, {
             "id": "spirals",
             "title": "Spirals",
-            "desc": "Logarithmic spirals."
-        }, {
-            "id": "normal_map",
-            "title": "Normal Map",
-            "desc":  "Normal maps encode surface detail in a flat texture. They are used for adding artificial detail to 3D models without changing the geometry"
+            "desc": "Logarithmic spirals. My friend Sarah suggested a spiral pattern, and this is what I made."
         }, {
             "id": "wheat",
             "title": "Wheat",
-            "desc": "This pattern was loosely inspired by the shape of blades of wheat"
+            "desc": "This pattern was loosely inspired by the shape of blades of wheat."
+        }, {
+            "id": "warp",
+            "title": "Warped Space",
+            "desc": "Take a tiling of patterns and randomly warp it."
+        }, {
+            "id": "normal_map",
+            "title": "Normal Map",
+            "desc":  "<a href=\"https://en.wikipedia.org/wiki/Normal_mapping\">Normal maps</a> encode surface detail in a flat texture. They are used for adding artificial detail to 3D models without changing the geometry."
+        }, {
+            "id": "invisible_ink",
+            "title": "Invisible Ink",
+            "desc": "This shader was inspired by my <a href=\"https://ptrgags.deviantart.com/gallery/64762271/Invisible-Ink-Art-Trading-Cards\">invisible ink fountain pen art</a>."
+        }, {
+            "id": "googly",
+            "title": "Googly Eyes",
+            "desc": "My co-worker Tom brought in googly eyes one day for a joke. This inspired me to make this shader just for laughs."
+        }, {
+            "id": "kaleidoscope",
+            "title": "Kaleidoscope",
+            "desc": "Mirrors everywhere. This shader looks really cool in 3D Mode (Try Torus + Boxy)."
+        }, {
+            "id": "shell",
+            "title": "Shell",
+            "desc": "the regions of this one remind me of a nautilus shell except circular instead of a spiral."
+        }, {
+            "id": "mandala",
+            "title": "Mandala",
+            "desc": "I enjoy <a href=\"https://ptrgags.deviantart.com/gallery/64937457/Mandalas\">drawing mandalas</a>. This time, I decided to draw them with code!"
         }, {
             "id": "stained_glass",
             "title": "Stained Glass",
-            "desc": "Nested Voronoi pattern colored to look like glass"
+            "desc": "Nested Voronoi pattern colored to look like glass. <a href=\"https://www.deviantart.com/art/Tinted-Glass-453147711\">This fractal</a> by my friend Karishma was my inspiration for how to color this stained glass."
+        }, {
+            "id": "liquid_metal",
+            "title": "Liquid Metal",
+            "desc": "An experiment with Fractal Brownian Motion I learned about <a href=\"https://thebookofshaders.com/13/\">here</a>."
+        }, {
+            "id": "mandelbrot_cycle",
+            "title": "Mandelbrot Set: Cycled Colors",
+            "desc": "This is the first of a few variations on the <a href=\"https://en.wikipedia.org/wiki/Mandelbrot_set\">Mandelbrot Set</a>. Numberphile has a <a href=\"https://www.youtube.com/watch?v=NGMRB4O922I\">video</a> explaining this fractal. This one reminds me of Dr. Seuss books."
         }, {
             "id": "mandelbrot_grow",
             "title": "Growing Mandelbrot Set",
             "desc": "Wait a moment and you'll see the detail grow!"
         }, {
+            "id": "mandelbrot_cosine",
+            "title": "Mandelbrot Set: Cosine Shading",
+            "desc": "This is the mandelbrot with <a href=\"http://eldar.mathstat.uoguelph.ca/dashlock/ftax/CosineCol.html\">cosine coloring</a>."
+        }, {
             "id": "julia",
             "title": "Julia Set",
-            "desc": "The Julia set is closely related to the Mandelbrot Set"
+            "desc": "The <a href=\"https://en.wikipedia.org/wiki/Julia_set\">Julia set</a> is closely related to the Mandelbrot Set. Numberphile has a <a href=\"https://www.youtube.com/watch?v=oCkQ7WK7vuY\">video</a> about this set, too."
         }, {
-            "id": "voronoi_doodle",
-            "title": "Voronoi Doodle",
-            "desc": "This pattern is inspired by my fountain pen doodles, which are in turn inspired by the Zentangle Method."
-        }, {
-            "id": "invisible_ink",
-            "title": "Invisible Ink",
-            "desc": "This is a simulation of invisible ink under a black light"
-        }, {
-            "id": "liquid_metal",
-            "title": "Liquid Metal",
-            "desc": "An experiment with Fractal Brownian Motion"
-        }, {
-            "id": "mandala",
-            "title": "Mandala",
-            "desc": "Patterns in polar coordinates"
-        }, {
-            "id": "shell",
-            "title": "Shell",
-            "desc": "the regions of this one remind me of a nautilus shell except circular instead of a spiral"
-        }, {
-            "id": "kaleidoscope",
-            "title": "Kaleidoscope",
-            "desc": "Mirrors everywhere."
+            "id": "newton_pop",
+            "title": "Newton Fractal: Pop Art",
+            "desc": "This is the first of four versions of the <a href=\"https://en.wikipedia.org/wiki/Newton_fractal\">Newton Fractal</a>. This colors each region a flat color for a pop-art effect."
         }, {
             "id": "newton_traditional",
             "title": "Newton Traditional Coloring",
             "desc": "Traditionally, you color the fractal by which root was reached. This is an example of this with a twist."
         }, {
+            "id": "newton_cosine",
+            "title": "Newton Fractal: Cosine Shading",
+            "desc": "This fractal is created from Newton's Method in the complex plane."
+        }, {
             "id": "newton_iteration",
-            "title": "Newton Iteration",
-            "desc": "This uses my original idea for coloring"
-        }, {
-            "id": "newton_pop",
-            "title": "Newton Pop Art",
-            "desc": "This colors each region a flat color for a pop-art effect"
-        }, {
-            "id": "mandelbrot_cosine",
-            "title": "Mandelbrot Metal",
-            "desc": "This is the mandelbrot with cosine coloring"
-        }, {
-            "id": "mandelbrot_cycle",
-            "title": "Mandelbrot Cycled Colors",
-            "desc": "This is the Mandelbrot set except the colors are animated"
+            "title": "Newton Mosaic",
+            "desc": "This uses cosine shading + random shading by iteration count."
         }
     ]
 }

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>Three.js Shaders</title>
+
+    <link rel="stylesheet" href="styles/main.css" />
+
+    <!-- Bootstrap & JQuery -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Title and main buttons to switch shaders/open settings -->
+        <h2 class="text-center">Holiday Shaders 2: Credits</h2>
+        <div class="text-center">
+            <a href="index.html">Home</a>
+            &bull;
+            <a href="tutorials.html">Tutorials</a>
+            &bull;
+            <a href="credits.html">Credits</a>
+            &bull;
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="text-center">Resources Used</h3>
+                <ul>
+                    <li>
+                        <a href="https://thebookofshaders.com/">
+                            The Book of Shaders
+                        </a> - This interactive book is a great reference for
+                        making shader art.
+                    </li>
+                    <li>
+                        <a href="http://editor.thebookofshaders.com/">
+                            The Book of Shaders Editor
+                        </a> - This online shader editor was very helpful for
+                        prototyping my shaders.
+                    </li>
+                    <li>
+                        <a href="http://shadertoy.com">ShaderToy</a>
+                        - This is another online shader editor. I did not use
+                        it as much as I did last year, but it is a great
+                        resource with many examples by the pros.
+                    </li>
+                    <li>
+                        <a href="http://www.iquilezles.org/www/index.htm">
+                        Íñigo "iq" Quílez's shader articles</a> -
+                        iq is probably the most well-known shader artist. I have
+                        seen so many shader examples that reference his code.
+                        In this project, I found two of his articles particularly
+                        useful: his tutorial on
+                        <a href="http://www.iquilezles.org/www/articles/voronoilines/voronoilines.htm">
+                        Voronoi diagram edges</a> and his article on
+                        <a href="http://www.iquilezles.org/www/articles/palettes/palettes.htm">
+                        cosine color palettes</a>.
+                    </li>
+                    <li>
+                        <a href="https://github.com/crapp/geomandel/blob/master/README.md">
+                            This GitHub project had more examples of cosine color
+                            palettes.
+                        </a>
+                    </li>
+                    <li>
+                        These pages were useful for learning about the Newton's Method Fractal:
+                        <a href="http://eldar.mathstat.uoguelph.ca/dashlock/ftax/Newton.html">here</a>
+                        <a href="https://www.mitchr.me/SS/newton/#firstprogram">here</a>
+                        and
+                        <a href="https://en.wikipedia.org/wiki/Newton_fractal">here</a>
+                    </li>
+                    <li>
+                        <a href="http://eldar.mathstat.uoguelph.ca/dashlock/ftax/CosineCol.html">
+                        Fractal Cosine Coloring</a> - This page was very useful
+                        for learning new ways to color the Mandelbrot Set and
+                        Newton's Method fractals.
+                    </li>
+                </ul>
+                <h3>Software Used</h3>
+                <ul>
+                    <li>HTML/CSS/JavaScript - Backbone of the website</li>
+                    <li><a href="https://threejs.org/">Three.js</a> - 2D and 3D graphics in WebGL</li>
+                    <li>
+                        <a href="https://getbootstrap.com">Bootstrap</a> +
+                        <a href="https://bootswatch.com/darkly/">Darkly Theme</a>
+                        - Look and feel of the website
+                    </li>
+                    <li>OpenGL Shader Language (GLSL) - All shaders were written in this language</li>
+                </ul>
+            </div>
+            <div id="thank-yous" class="col-sm-6">
+                <h3 class="text-center">Inspiration/Shader Ideas</h3>
+                <p>
+                    Thank you to the following people for giving me inspiration
+                    for some of my shader designs:
+                </p>
+                <ul>
+                    <li>
+                        My friend <b>Karishma Changlani</b>
+                        (<a href="https://sarcasmnymph.deviantart.com/">
+                        DeviantArt</a> |
+                        <a href="https://github.com/karishmachanglani">
+                        GitHub</a>) made
+                        <a href="https://www.deviantart.com/art/Tinted-Glass-453147711">
+                        this fractal
+                        </a>. It was the inspiraton for my shader Stained Glass.
+                    </li>
+                    <li>
+                        My co-worker <b>Tom Thi</b> brought in googly eyes
+                        for a joke. This was the inspiration for my Googly Eyes
+                        design.
+                    </li>
+                    <li>
+                        My friend <b>Sarah DiChristino-Brennan</b>
+                        (<a href="https://www.instagram.com/youmakemesick00/">
+                        Instagram</a> |
+                        <a href="https://janneystreet.bandcamp.com/releases">
+                        Bandcamp</a>) suggested a spiral pattern.
+                        This was my inspiration for Spirals.
+                    </li>
+                </ul>
+                <h3 class="text-center">Feedback</h3>
+                <p>
+                    I was fortunate that many of my friends gave me good
+                    feedback on my shaders so I was able to improve many of
+                    them. Thank you to the following people for your feedback!
+                </p>
+                <ul>
+                    <li>
+                        A special thank you to my friend <b>Genna Hennessy</b>
+                        (<a href="https://twitter.com/jx_no15">Twitter</a> |
+                        <a href="http://ladybanette.tumblr.com/">Tumblr</a>) for
+                        helping me reorganize the website layout. It looks
+                        so much cleaner than when I started!
+                    </li>
+                    <li>
+                        Thanks again to my friend <b>Karishma Changlani</b>
+                        (<a href="https://sarcasmnymph.deviantart.com/">
+                        DeviantArt</a> |
+                        <a href="https://github.com/karishmachanglani">
+                        GitHub</a>) for
+                        giving me feedback that helped me tweak several of my
+                        shaders.
+                    </li>
+                    <li>
+                        Thank you to DeviantArt user <b>PonceIndustries</b> (
+                        <a href="https://ponceindustries.deviantart.com">
+                        DeviantArt</a>) for your many comments on my preview
+                        screenshots! Our discussions led me to find several
+                        variations on the Newton and Mandelbrot Set fractals.
+                    </li>
+                    <li>
+                        Finally, thank you to all my other friends and watchers
+                        on DeviantArt for your support throughout the month!
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

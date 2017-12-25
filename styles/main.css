@@ -5,7 +5,7 @@
 }
 
 #rand-freq {
-    width: 10%;
+    width: 30%;
     display: inline-block;
 }
 
@@ -36,6 +36,7 @@
 .btn.btn-primary {
     padding: 4px 8px;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 input.form-control, select.form-control {
@@ -45,4 +46,12 @@ input.form-control, select.form-control {
 
 div.well {
     padding-top: 0px;
+}
+
+#thank-yous b {
+    color: #F17D1D;
+}
+
+#links {
+    margin-bottom: 8px;
 }
