@@ -55,3 +55,17 @@ div.well {
 #links {
     margin-bottom: 8px;
 }
+
+.gh-icon {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: absolute;
+    right: 20px;
+    z-index: 100;
+}
+
+.gh-icon img {
+    width: 32px;
+}
