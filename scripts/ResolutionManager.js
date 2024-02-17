@@ -7,10 +7,10 @@ const RESOLUTIONS = {
     avatar: new THREE.Vector2(200, 200),
     // Art Trading Card @ 100 dpi
     small: new THREE.Vector2(250, 350),
+    // Art Trading Card @ 200 dpi
+    medium: new THREE.Vector2(500, 700),
     // Art Trading Card @ 300 dpi
-    medium: new THREE.Vector2(750, 1050),
-    // Art Trading Card @ 600 dpi
-    large: new THREE.Vector2(1500, 2100),
+    large: new THREE.Vector2(750, 1050),
     // Square Textures
     tex_small: new THREE.Vector2(256, 256),
     tex_medium: new THREE.Vector2(512, 512),
